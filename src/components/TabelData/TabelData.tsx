@@ -1,5 +1,11 @@
 import React from "react";
-import { DataGrid, GridColDef, GridToolbarExport } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridApi,
+  GridColumns,
+  GridColDef,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -147,7 +153,7 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
   );
 }
 
-const columns: GridColDef[] = [
+const columns: GridColumns[] = [
   { field: "id", headerName: "ID", flex: 0.3 },
   { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
   {
@@ -166,6 +172,30 @@ const columns: GridColDef[] = [
     field: "SKU",
     headerName: "SKU",
     flex: 1,
+  },
+  {
+    field: "actions",
+    type: "actions",
+    headerName: "Actions",
+    flex: 1,
+    cellClassName: "actions",
+    getActions: ({ id }) => {
+      return [
+        <IconButton
+          icon={<EditIcon />}
+          label="Edit"
+          className="textPrimary"
+          onClick={handleEditClick(id)}
+          color="inherit"
+        />,
+        <IconButton
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={handleDeleteClick(id)}
+          color="inherit"
+        />,
+      ];
+    },
   },
 ];
 
