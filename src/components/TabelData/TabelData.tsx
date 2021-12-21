@@ -1,19 +1,18 @@
-import React from "react";
+import React, { Fragment, useContext } from "react";
 import {
   DataGrid,
   GridApi,
-  GridColumns,
   GridColDef,
   GridToolbarExport,
 } from "@mui/x-data-grid";
 import { Box, Button, IconButton, TextField } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import Stack from "@mui/material/Stack";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useStokModal } from "../../context/stokModalContext";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -36,14 +35,10 @@ interface QuickSearchToolbarProps {
 }
 
 function QuickSearchToolbar(props: QuickSearchToolbarProps) {
-  const [open, setOpen] = React.useState(false);
+  const { openModal } = useStokModal();
 
   const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    openModal();
   };
 
   return (
@@ -57,64 +52,6 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
         flexWrap: "wrap",
       }}
     >
-      <div>
-        <Button
-          variant="text"
-          size="small"
-          startIcon={<AddIcon />}
-          onClick={handleClickOpen}
-        >
-          Add
-        </Button>
-        <Dialog
-          maxWidth="md"
-          fullWidth={true}
-          open={open}
-          onClose={handleClose}
-        >
-          <DialogTitle>Add</DialogTitle>
-          <DialogContent dividers>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="namaBarang"
-              label="Nama Barang"
-              type="namaBarang"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              margin="dense"
-              id="harga"
-              label="Harga"
-              type="number"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              margin="dense"
-              id="jumlahStok"
-              label="Jumlah Stok"
-              type="number"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              margin="dense"
-              id="SKU"
-              label="SKU"
-              type="SKU"
-              fullWidth
-              variant="outlined"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Confirm</Button>
-          </DialogActions>
-        </Dialog>
-        <GridToolbarExport />
-      </div>
       <TextField
         variant="outlined"
         value={props.value}
@@ -149,18 +86,31 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
           },
         }}
       />
+      <div>
+        <Stack direction="row" spacing={2} mt={2} mr={2}>
+          <GridToolbarExport variant="outlined" size="medium" />
+          <Button
+            variant="contained"
+            size="medium"
+            startIcon={<AddIcon />}
+            onClick={handleClickOpen}
+          >
+            Add
+          </Button>
+        </Stack>
+      </div>
     </Box>
   );
 }
 
-const columns: GridColumns[] = [
+const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.3 },
   { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
   {
     field: "harga",
     headerName: "Harga",
     type: "number",
-    flex: 0.6,
+    flex: 0.3,
   },
   {
     field: "jumlahStok",
@@ -174,27 +124,27 @@ const columns: GridColumns[] = [
     flex: 1,
   },
   {
-    field: "actions",
-    type: "actions",
+    field: "action",
     headerName: "Actions",
-    flex: 1,
-    cellClassName: "actions",
-    getActions: ({ id }) => {
-      return [
-        <IconButton
-          icon={<EditIcon />}
-          label="Edit"
-          className="textPrimary"
-          onClick={handleEditClick(id)}
-          color="inherit"
-        />,
-        <IconButton
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={handleDeleteClick(id)}
-          color="inherit"
-        />,
-      ];
+    flex: 0.3,
+    sortable: false,
+
+    renderCell: (params) => {
+      const onClickEdit = async () => {};
+      const onClickDelete = async () => {
+        return alert(JSON.stringify(params.row, null, 4));
+      };
+
+      return (
+        <Fragment>
+          <IconButton onClick={onClickEdit}>
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={onClickDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Fragment>
+      );
     },
   },
 ];
