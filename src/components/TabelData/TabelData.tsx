@@ -1,7 +1,6 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import {
   DataGrid,
-  GridApi,
   GridColDef,
   GridToolbarExport,
 } from "@mui/x-data-grid";
@@ -103,7 +102,79 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
   );
 }
 
-const columns: GridColDef[] = [
+const TabelData = (props: ITabelDataProps) => {
+  const [searchText, setSearchText] = React.useState("");
+
+  const originalRows: IStokBarang[] = [
+    {
+      id: 1,
+      harga: 10000,
+      namaBarang: "Jon",
+      jumlahStok: 35,
+      SKU: "JSnow@example.com",
+    },
+    {
+      id: 2,
+      harga: 10000,
+      namaBarang: "Cersei",
+      jumlahStok: 42,
+      SKU: "CLannister@example.com",
+    },
+    {
+      id: 3,
+      harga: 10000,
+      namaBarang: "Jaime",
+      jumlahStok: 45,
+      SKU: "JLannister@example.com",
+    },
+    {
+      id: 4,
+      harga: 10000,
+      namaBarang: "Arya",
+      jumlahStok: 16,
+      SKU: "AStark@example.com",
+    },
+    {
+      id: 5,
+      harga: 10000,
+      namaBarang: "Daenerys",
+      jumlahStok: 999,
+      SKU: "DTargaryen@example.com",
+    },
+    {
+      id: 6,
+      harga: 10000,
+      namaBarang: "Fire",
+      jumlahStok: 150,
+      SKU: "Melisandre@example.com",
+    },
+    {
+      id: 7,
+      harga: 10000,
+      namaBarang: "Ferrara",
+      jumlahStok: 44,
+      SKU: "FClifford@example.com",
+    },
+    {
+      id: 8,
+      harga: 10000,
+      namaBarang: "Rossini",
+      jumlahStok: 36,
+      SKU: "RFrances@example.com",
+    },
+    {
+      id: 9,
+      harga: 10000,
+      namaBarang: "Harvey",
+      jumlahStok: 65,
+      SKU: "HRoxie@example.com",
+    },
+  ];
+
+  const [rows, setRows] = React.useState<any[]>(originalRows);
+  const { openModal } = useStokModal();
+
+  const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.3 },
   { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
   {
@@ -128,6 +199,7 @@ const columns: GridColDef[] = [
     headerName: "Actions",
     flex: 0.3,
     sortable: false,
+    disableColumnMenu: true,
 
     renderCell: (params) => {
       const onClickEdit = async () => {};
@@ -135,9 +207,13 @@ const columns: GridColDef[] = [
         return alert(JSON.stringify(params.row, null, 4));
       };
 
+      const handleClickOpen = () => {
+        openModal(params.row);
+      };
+
       return (
         <Fragment>
-          <IconButton onClick={onClickEdit}>
+          <IconButton onClick={handleClickOpen}>
             <EditIcon />
           </IconButton>
           <IconButton onClick={onClickDelete}>
@@ -148,76 +224,6 @@ const columns: GridColDef[] = [
     },
   },
 ];
-
-const originalRows: IStokBarang[] = [
-  {
-    id: 1,
-    harga: 10000,
-    namaBarang: "Jon",
-    jumlahStok: 35,
-    SKU: "JSnow@example.com",
-  },
-  {
-    id: 2,
-    harga: 10000,
-    namaBarang: "Cersei",
-    jumlahStok: 42,
-    SKU: "CLannister@example.com",
-  },
-  {
-    id: 3,
-    harga: 10000,
-    namaBarang: "Jaime",
-    jumlahStok: 45,
-    SKU: "JLannister@example.com",
-  },
-  {
-    id: 4,
-    harga: 10000,
-    namaBarang: "Arya",
-    jumlahStok: 16,
-    SKU: "AStark@example.com",
-  },
-  {
-    id: 5,
-    harga: 10000,
-    namaBarang: "Daenerys",
-    jumlahStok: 999,
-    SKU: "DTargaryen@example.com",
-  },
-  {
-    id: 6,
-    harga: 10000,
-    namaBarang: "Fire",
-    jumlahStok: 150,
-    SKU: "Melisandre@example.com",
-  },
-  {
-    id: 7,
-    harga: 10000,
-    namaBarang: "Ferrara",
-    jumlahStok: 44,
-    SKU: "FClifford@example.com",
-  },
-  {
-    id: 8,
-    harga: 10000,
-    namaBarang: "Rossini",
-    jumlahStok: 36,
-    SKU: "RFrances@example.com",
-  },
-  {
-    id: 9,
-    harga: 10000,
-    namaBarang: "Harvey",
-    jumlahStok: 65,
-    SKU: "HRoxie@example.com",
-  },
-];
-
-const TabelData = (props: ITabelDataProps) => {
-  const [searchText, setSearchText] = React.useState("");
-  const [rows, setRows] = React.useState<any[]>(originalRows);
 
   const requestSearch = (searchValue: string) => {
     setSearchText(searchValue);
