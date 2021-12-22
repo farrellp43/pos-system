@@ -8,8 +8,22 @@ import React, {
 
 interface State {
   isOpenModal: boolean;
-  dataStok: {} | undefined;
-  openModal: (data?: {}) => void;
+  dataStok:
+    | {
+        id: number;
+        namaBarang: string;
+        jumlahStok: number;
+        harga: number;
+        SKU: string;
+      }
+    | undefined;
+  openModal: (data?: {
+    id: number;
+    namaBarang: string;
+    jumlahStok: number;
+    harga: number;
+    SKU: string;
+  }) => void;
   closeModal: () => void;
 }
 
@@ -21,18 +35,33 @@ const StokModalContext = createContext<State | undefined>(undefined);
 
 const StokModalProvider = ({ children }: IStokModalProviderProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [dataStok, setDataStok] = useState<{}>();
+  const [dataStok, setDataStok] = useState<{
+    id: number;
+    namaBarang: string;
+    jumlahStok: number;
+    harga: number;
+    SKU: string;
+  }>();
 
-  const openModal = useCallback((data?: {}) => {
-    if (data) {
-      setDataStok((prev) => ({
-        ...prev,
-        ...data,
-      }));
-    }
+  const openModal = useCallback(
+    (data?: {
+      id: number;
+      namaBarang: string;
+      jumlahStok: number;
+      harga: number;
+      SKU: string;
+    }) => {
+      if (data) {
+        setDataStok((prev) => ({
+          ...prev,
+          ...data,
+        }));
+      }
 
-    setIsOpenModal(true);
-  }, []);
+      setIsOpenModal(true);
+    },
+    []
+  );
 
   const closeModal = useCallback(() => {
     setIsOpenModal(false);

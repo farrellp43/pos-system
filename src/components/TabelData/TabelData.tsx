@@ -1,9 +1,5 @@
-import React, { Fragment } from "react";
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbarExport,
-} from "@mui/x-data-grid";
+import React, { Fragment, useState } from "react";
+import { DataGrid, GridColDef, GridToolbarExport } from "@mui/x-data-grid";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -12,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useStokModal } from "../../context/stokModalContext";
+import ModalDelete from "../ModalDelete/ModalDelete";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -104,6 +101,7 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
 
 const TabelData = (props: ITabelDataProps) => {
   const [searchText, setSearchText] = React.useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const originalRows: IStokBarang[] = [
     {
@@ -175,55 +173,61 @@ const TabelData = (props: ITabelDataProps) => {
   const { openModal } = useStokModal();
 
   const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", flex: 0.3 },
-  { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
-  {
-    field: "harga",
-    headerName: "Harga",
-    type: "number",
-    flex: 0.3,
-  },
-  {
-    field: "jumlahStok",
-    headerName: "Stok",
-    type: "number",
-    flex: 0.3,
-  },
-  {
-    field: "SKU",
-    headerName: "SKU",
-    flex: 1,
-  },
-  {
-    field: "action",
-    headerName: "Actions",
-    flex: 0.3,
-    sortable: false,
-    disableColumnMenu: true,
-
-    renderCell: (params) => {
-      const onClickEdit = async () => {};
-      const onClickDelete = async () => {
-        return alert(JSON.stringify(params.row, null, 4));
-      };
-
-      const handleClickOpen = () => {
-        openModal(params.row);
-      };
-
-      return (
-        <Fragment>
-          <IconButton onClick={handleClickOpen}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={onClickDelete}>
-            <DeleteIcon />
-          </IconButton>
-        </Fragment>
-      );
+    { field: "id", headerName: "ID", flex: 0.3 },
+    { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
+    {
+      field: "harga",
+      headerName: "Harga",
+      type: "number",
+      flex: 0.3,
     },
-  },
-];
+    {
+      field: "jumlahStok",
+      headerName: "Stok",
+      type: "number",
+      flex: 0.3,
+    },
+    {
+      field: "SKU",
+      headerName: "SKU",
+      flex: 1,
+    },
+    {
+      field: "action",
+      headerName: "Actions",
+      flex: 0.3,
+      sortable: false,
+      disableColumnMenu: true,
+
+      renderCell: (params) => {
+        // const onClickDelete = () => {
+        //   return alert(JSON.stringify(params.row, null, 4));
+        // };
+        const handleOpen = () => {
+          setIsOpen(true);
+        };
+
+        const handleClickOpen = () => {
+          openModal(params.row);
+        };
+
+        return (
+          <Fragment>
+            <IconButton onClick={handleClickOpen}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => handleOpen()}>
+              <DeleteIcon />
+            </IconButton>
+            <ModalDelete
+              isDialogOpened={isOpen}
+              handleCloseDialog={() => setIsOpen(false)}
+            />
+          </Fragment>
+        );
+      },
+    },
+  ];
 
   const requestSearch = (searchValue: string) => {
     setSearchText(searchValue);

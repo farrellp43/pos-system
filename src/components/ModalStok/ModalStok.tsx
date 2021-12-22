@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -9,37 +9,57 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useStokModal } from "../../context/stokModalContext";
 
-interface IModalStok {
-  id?: number;
-  namaBarang?: string;
-  harga?: number;
-  jumlahStok?: number;
-  SKU?: string;
+interface IValuesStok {
+  id: number;
+  namaBarang: string;
+  harga: number;
+  jumlahStok: number;
+  SKU: string;
 }
 
-const ModalStok = (props: IModalStok) => {
-  const { isOpenModal, closeModal } = useStokModal();
+const schema = yup
+  .object({
+    namaBarang: yup.string().required("Kolom wajib diisi"),
+    harga: yup.number().integer().required("Kolom wajib diisi"),
+    jumlahStok: yup.number().integer().required("Kolom wajib diisi"),
+    SKU: yup.string().required("Kolom wajib diisi"),
+  })
+  .required();
 
-  const schema = yup
-    .object({
-      namaBarang: yup.string().required("Field Nama Barang tidak boleh kosong"),
-      harga: yup.number().integer().required("Field Harga tidak boleh kosong"),
-      jumlahStok: yup.number().integer().required("Field Jumlah Stok tidak boleh kosong"),
-      SKU: yup.string().required("Field SKU tidak boleh kosong"),
-    })
-    .required();
+const ModalStok = () => {
+  const { isOpenModal, closeModal, dataStok } = useStokModal();
+
+  const initialValues = {
+    id: 0,
+    namaBarang: "",
+    harga: 0,
+    jumlahStok: 0,
+    SKU: "",
+  };
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IModalStok>({
+    reset,
+  } = useForm<IValuesStok>({
     resolver: yupResolver(schema),
+    defaultValues: initialValues,
   });
 
-  const onSubmit = (data: IModalStok) => {
+  const onSubmit = (data: IValuesStok) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    if (isOpenModal) {
+      if (dataStok) {
+        reset(dataStok);
+      } else {
+        reset(initialValues);
+      }
+    }
+  }, [isOpenModal, dataStok]);
 
   return (
     <Dialog
@@ -48,7 +68,7 @@ const ModalStok = (props: IModalStok) => {
       open={isOpenModal}
       onClose={closeModal}
     >
-      <DialogTitle>Add</DialogTitle>
+      <DialogTitle>{dataStok ? "Edit" : "Add"}</DialogTitle>
       <DialogContent dividers>
         <Controller
           name="namaBarang"
