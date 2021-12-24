@@ -17,7 +17,12 @@ const ModalDelete = (props: IModalDeleteProps) => {
   };
 
   return (
-    <Dialog open={props.isDialogOpened} onClose={handleClose}>
+    <Dialog
+      maxWidth="md"
+      fullWidth={true}
+      open={props.isDialogOpened}
+      onClose={handleClose}
+    >
       <DialogTitle>Apa anda yakin?</DialogTitle>
       <DialogContent dividers>
         <DialogContentText>

@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useStokModal } from "../../context/stokModalContext";
 import ModalDelete from "../ModalDelete/ModalDelete";
+import { originalRows } from "../../constants/mock";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -102,100 +103,33 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
 const TabelData = (props: ITabelDataProps) => {
   const [searchText, setSearchText] = React.useState("");
   const [isOpen, setIsOpen] = useState(false);
-
-  const originalRows: IStokBarang[] = [
-    {
-      id: 1,
-      harga: 10000,
-      namaBarang: "Jon",
-      jumlahStok: 35,
-      SKU: "JSnow@example.com",
-    },
-    {
-      id: 2,
-      harga: 10000,
-      namaBarang: "Cersei",
-      jumlahStok: 42,
-      SKU: "CLannister@example.com",
-    },
-    {
-      id: 3,
-      harga: 10000,
-      namaBarang: "Jaime",
-      jumlahStok: 45,
-      SKU: "JLannister@example.com",
-    },
-    {
-      id: 4,
-      harga: 10000,
-      namaBarang: "Arya",
-      jumlahStok: 16,
-      SKU: "AStark@example.com",
-    },
-    {
-      id: 5,
-      harga: 10000,
-      namaBarang: "Daenerys",
-      jumlahStok: 999,
-      SKU: "DTargaryen@example.com",
-    },
-    {
-      id: 6,
-      harga: 10000,
-      namaBarang: "Fire",
-      jumlahStok: 150,
-      SKU: "Melisandre@example.com",
-    },
-    {
-      id: 7,
-      harga: 10000,
-      namaBarang: "Ferrara",
-      jumlahStok: 44,
-      SKU: "FClifford@example.com",
-    },
-    {
-      id: 8,
-      harga: 10000,
-      namaBarang: "Rossini",
-      jumlahStok: 36,
-      SKU: "RFrances@example.com",
-    },
-    {
-      id: 9,
-      harga: 10000,
-      namaBarang: "Harvey",
-      jumlahStok: 65,
-      SKU: "HRoxie@example.com",
-    },
-  ];
-
   const [rows, setRows] = React.useState<any[]>(originalRows);
   const { openModal } = useStokModal();
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", flex: 0.3 },
-    { field: "namaBarang", headerName: "Nama Barang", flex: 0.6 },
+    { field: "id", headerName: "ID", width: 100 },
+    { field: "namaBarang", headerName: "Nama Barang", width: 150 },
     {
       field: "harga",
       headerName: "Harga",
       type: "number",
-      flex: 0.3,
+      width: 100,
     },
     {
       field: "jumlahStok",
       headerName: "Stok",
       type: "number",
-      flex: 0.3,
+      width: 100,
     },
     {
       field: "SKU",
       headerName: "SKU",
-      flex: 1,
+      width: 200,
     },
     {
       field: "action",
       headerName: "Actions",
-      flex: 0.3,
+      width: 100,
       sortable: false,
       disableColumnMenu: true,
 
@@ -241,7 +175,7 @@ const TabelData = (props: ITabelDataProps) => {
   };
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 500, width: 800 }}>
       <DataGrid
         editMode="row"
         components={{

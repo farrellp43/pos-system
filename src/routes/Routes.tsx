@@ -5,17 +5,17 @@ import {
     Route
 } from "react-router-dom";
 import PageLayout from "../layouts/PageLayout";
-import Dashboard from '../pages/Dashboard/Dashboard';
+import Laporan from "../pages/Laporan/Laporan";
 import StokBarang from '../pages/StokBarang/StokBarang';
-import Kasir from '../pages/Kasir/Kasir';
+import Transaksi from '../pages/Transaksi/Transaksi';
 
 export default function Routes() {
     return (
         <Router>
             <Switch>
-                <Route path="/" exact>
+                <Route path="/laporan">
                     <PageLayout>
-                        <Dashboard />
+                        <Laporan />
                     </PageLayout>
                 </Route>
                 <Route path="/stok">
@@ -23,9 +23,9 @@ export default function Routes() {
                         <StokBarang />
                     </PageLayout>
                 </Route>
-                <Route path="/kasir">
+                <Route path="/" exact>
                     <PageLayout>
-                        <Kasir />
+                        <Transaksi />
                     </PageLayout>
                 </Route>
             </Switch>

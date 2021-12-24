@@ -1,15 +1,20 @@
 import React, { Fragment } from "react";
 import TabelData from "../../components/TabelData/TabelData";
 import ModalStok from "../../components/ModalStok/ModalStok";
+import Box from "@mui/material/Box";
 
 interface IStokBarangProps {}
 
 const StokBarang = (props: IStokBarangProps) => {
   return (
-    <Fragment>
+    <Box
+      sx={{
+        m: 3,
+      }}
+    >
       <TabelData />
       <ModalStok />
-    </Fragment>
+    </Box>
   );
 };
 
