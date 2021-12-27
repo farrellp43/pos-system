@@ -1,0 +1,11 @@
+.is-enter {
+  grid-row-start: 3;
+  grid-row-end: 5;
+  grid-column-start: 4;
+}
+
+.is-000 {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 4;
+}
