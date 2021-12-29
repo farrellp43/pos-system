@@ -6,10 +6,12 @@ import {
   Box,
   Typography,
   Card,
+  IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React from "react";
+import React, { useState } from "react";
 import { originalRows } from "../../constants/mock";
+import CardBarang from "../CardBarang/CardBarang";
 
 interface IListBarangProps {}
 
@@ -46,23 +48,11 @@ const ListBarang = (props: IListBarangProps) => {
         >
           {originalRows && originalRows.length > 0 ? (
             originalRows.map((rows) => (
-              // <li key={rows.id}>
-              //   <span>{rows.id}</span>
-              //   <span>{rows.namaBarang}</span>
-              //   <span>{rows.harga}</span>
-              // </li>
-              <Card key={rows.id} variant="outlined" sx={{
-                marginBottom: "2px"
-              }}>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {rows.namaBarang}
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {rows.harga}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <CardBarang
+                key={rows.id}
+                namaBarang={rows.namaBarang}
+                harga={rows.harga}
+              />
             ))
           ) : (
             <h1>Barang tidak ditemukan!</h1>

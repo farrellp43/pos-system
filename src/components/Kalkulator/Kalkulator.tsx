@@ -8,6 +8,11 @@ interface IKalkulatorProps {}
 const Kalkulator = (props: IKalkulatorProps) => {
   const [display, setDisplay] = useState<string>("0");
 
+  const onQuickActionClick = (digit: number) => {
+    let newDisplay = Number(display) + digit;
+    setDisplay(String(newDisplay));
+  };
+
   const onDigitButtonClick = (digit: number) => {
     let newDisplay = display;
 
@@ -34,7 +39,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
     let value = Number(display);
     let newDisplay = value * 1000;
     setDisplay(String(newDisplay));
-  }
+  };
 
   const onClearButtonClick = () => {
     setDisplay("0");
@@ -42,9 +47,19 @@ const Kalkulator = (props: IKalkulatorProps) => {
 
   const onDelButtonClick = () => {
     let value = Number(display);
-    let newDisplay = Math.floor(value / 10);
-    setDisplay(String(newDisplay));
+    if (value == 0) {
+      setDisplay("0");
+    } else {
+      let newDisplay = Math.floor(value / 10);
+      setDisplay(String(newDisplay));
+    }
   };
+
+  const onEnterButtonClick = () => {
+    console.log(display);
+  };
+
+  const val = display.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
   return (
     <CardContent>
@@ -56,20 +71,50 @@ const Kalkulator = (props: IKalkulatorProps) => {
           rowGap: 1,
         }}
       >
-        <Box p={2}>
+        <Box>
           <TextField
-            value={display}
+            value={val}
             fullWidth
+            type="number"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setDisplay(event.target.value)
+            }
             inputProps={{
-              style: { textAlign: "right" },
+              style: { fontSize: "50px" },
             }}
-          ></TextField>
+          />
         </Box>
         <Box
-          sx={{
-            backgroundColor: "green",
-          }}
-        ></Box>
+          display="grid"
+          gridTemplateColumns="auto auto auto auto"
+          gap={2}
+          p={2}
+        >
+          <ButtonKalkulator onClick={() => onQuickActionClick(100)}>
+            100
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(1000)}>
+            1000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(2000)}>
+            2000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(5000)}>
+            5000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(10000)}>
+            10000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(20000)}>
+            20000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(50000)}>
+            50000
+          </ButtonKalkulator>
+          <ButtonKalkulator onClick={() => onQuickActionClick(100000)}>
+            100000
+          </ButtonKalkulator>
+        </Box>
 
         <Box display="grid" gridTemplateColumns="1fr 1fr 1fr 1fr">
           <ButtonKalkulator onClick={() => onDigitButtonClick(1)}>
@@ -101,11 +146,19 @@ const Kalkulator = (props: IKalkulatorProps) => {
           <ButtonKalkulator onClick={() => onDigitButtonClick(9)}>
             9
           </ButtonKalkulator>
-          <Button variant="outlined" className="is-enter">
+          <Button
+            variant="outlined"
+            className="is-enter"
+            onClick={onEnterButtonClick}
+          >
             <Typography variant="h6">Enter</Typography>
           </Button>
           <ButtonKalkulator onClick={onZeroButtonClick}>0</ButtonKalkulator>
-          <Button variant="outlined" className="is-000" onClick={onTripleZeroButtonClick}>
+          <Button
+            variant="outlined"
+            className="is-000"
+            onClick={onTripleZeroButtonClick}
+          >
             <Typography variant="h6">000</Typography>
           </Button>
         </Box>
