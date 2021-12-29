@@ -24,14 +24,14 @@ const Transaksi = (props: ITransaksi) => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item md={4}>
+        <Grid item md={5}>
           <Card
             variant="outlined"
           >
             <ListBarang />
           </Card>
         </Grid>
-        <Grid item md={8}>
+        <Grid item md={7}>
           <Card variant="outlined">
             <Kalkulator />
           </Card>
