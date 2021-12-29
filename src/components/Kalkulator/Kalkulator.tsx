@@ -1,5 +1,6 @@
 import { CardContent, Typography, Button, Box, TextField } from "@mui/material";
 import React, { useState } from "react";
+import NumberFormat from "react-number-format";
 import ButtonKalkulator from "../ButtonKalkulator/ButtonKalkulator";
 import "./Kalkulator.css";
 
@@ -59,7 +60,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
     console.log(display);
   };
 
-  const val = display.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  const val = display.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <CardContent>
@@ -71,16 +72,34 @@ const Kalkulator = (props: IKalkulatorProps) => {
           rowGap: 1,
         }}
       >
-        <Box>
+        <Box display="flex">
           <TextField
-            value={val}
-            fullWidth
-            type="number"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setDisplay(event.target.value)
-            }
+            type="text"
+            defaultValue="Rp"
             inputProps={{
-              style: { fontSize: "50px" },
+              readOnly: true,
+              style: {
+                fontSize: "50px",
+                textAlign: "center",
+                width: "150px",
+              },
+            }}
+          />
+          <NumberFormat
+            value={display}
+            customInput={TextField}
+            thousandSeparator="."
+            decimalSeparator=","
+            fullWidth
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              if (event.target.value === "") {
+                setDisplay("0");
+                return;
+              }
+              setDisplay(event.target.value);
+            }}
+            inputProps={{
+              style: { fontSize: "50px", textAlign: "right" },
             }}
           />
         </Box>
