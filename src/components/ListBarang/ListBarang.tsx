@@ -14,10 +14,36 @@ import AddIcon from "@mui/icons-material/Add";
 import React, { useState } from "react";
 import { originalRows } from "../../constants/mock";
 import CardBarang from "../CardBarang/CardBarang";
+import { useStokModal } from "../../context/stokModalContext";
 
 interface IListBarangProps {}
 
 const ListBarang = (props: IListBarangProps) => {
+  const [nama, setNama] = useState("");
+  const [barang, setBarang] = useState(originalRows);
+  const { openModal } = useStokModal();
+
+  const handleClickOpen = () => {
+    openModal();
+  };
+
+  const filter = (e: any) => {
+    const keyword = e.target.value;
+
+    if (keyword !== "") {
+      const results = originalRows.filter((barang) => {
+        return barang.namaBarang
+          .toLowerCase()
+          .startsWith(keyword.toLowerCase());
+      });
+      setBarang(results);
+    } else {
+      setBarang(originalRows);
+    }
+
+    setNama(keyword);
+  };
+
   return (
     <CardContent>
       <Box
@@ -32,6 +58,8 @@ const ListBarang = (props: IListBarangProps) => {
             placeholder="Cari barang..."
             fullWidth
             size="medium"
+            value={nama}
+            onChange={filter}
             InputProps={{
               sx: { paddingRight: 0 },
               startAdornment: <SearchIcon fontSize="small" />,
@@ -39,6 +67,7 @@ const ListBarang = (props: IListBarangProps) => {
                 <InputAdornment position="end">
                   <Button
                     variant="contained"
+                    onClick={handleClickOpen}
                     startIcon={<AddIcon />}
                     size="large"
                     sx={{
@@ -53,17 +82,13 @@ const ListBarang = (props: IListBarangProps) => {
             variant="outlined"
           />
         </Box>
-        {/* <Grid container>
-          <Grid item md={8}></Grid>
-          <Grid item md={4}></Grid>
-        </Grid> */}
         <Box
           sx={{
             overflowY: "scroll",
           }}
         >
-          {originalRows && originalRows.length > 0 ? (
-            originalRows.map((rows) => (
+          {barang && barang.length > 0 ? (
+            barang.map((rows) => (
               <CardBarang
                 key={rows.id}
                 namaBarang={rows.namaBarang}

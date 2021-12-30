@@ -1,18 +1,11 @@
 import {
   Box,
-  Button,
   Card,
-  CardActions,
-  CardContent,
   Grid,
-  TextField,
-  Typography,
 } from "@mui/material";
-import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import ListBarang from "../../components/ListBarang/ListBarang";
-import QuickActionUang from "../../components/QuickActionUang/QuickActionUang";
 import Kalkulator from "../../components/Kalkulator/Kalkulator";
+import ModalStok from "../../components/ModalStok/ModalStok";
 
 interface ITransaksi {}
 
@@ -37,6 +30,7 @@ const Transaksi = (props: ITransaksi) => {
           </Card>
         </Grid>
       </Grid>
+      <ModalStok />
     </Box>
   );
 };
