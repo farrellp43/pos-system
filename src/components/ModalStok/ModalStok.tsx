@@ -4,7 +4,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useForm, Controller } from "react-hook-form";
-import { Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useStokModal } from "../../context/stokModalContext";
@@ -28,6 +37,11 @@ const schema = yup
 
 const ModalStok = () => {
   const { isOpenModal, closeModal, dataStok } = useStokModal();
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
 
   const initialValues = {
     id: 0,
@@ -68,7 +82,7 @@ const ModalStok = () => {
       open={isOpenModal}
       onClose={closeModal}
     >
-      <DialogTitle>{dataStok ? "Edit" : "Add"}</DialogTitle>
+      <DialogTitle>{dataStok ? "Ubah Barang" : "Tambah Barang"}</DialogTitle>
       <DialogContent dividers>
         <Controller
           name="namaBarang"
@@ -107,24 +121,6 @@ const ModalStok = () => {
           rules={{ required: "Harga required" }}
         />
         <Controller
-          name="jumlahStok"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              margin="dense"
-              id="jumlahStok"
-              label="Jumlah Stok"
-              type="number"
-              fullWidth
-              variant="outlined"
-              error={Boolean(errors.jumlahStok)}
-              helperText={errors.jumlahStok ? errors.jumlahStok.message : " "}
-              {...field}
-            />
-          )}
-          rules={{ required: "Nama barang required" }}
-        />
-        <Controller
           name="SKU"
           control={control}
           defaultValue=""
@@ -143,11 +139,55 @@ const ModalStok = () => {
           )}
           rules={{ required: "SKU required" }}
         />
+        <Box display="flex" justifyContent="space-between" width="60%" mb={2}>
+          <Box>
+            <Typography variant="body1">Stok</Typography>
+            <Typography variant="body2" color="#545E6A">
+              Nonaktifkan jika tidak membutuhkan stok.
+            </Typography>
+          </Box>
+          <Box>
+            <FormGroup>
+              <FormControlLabel
+                control={<Switch checked={checked} onChange={handleChange} />}
+                label={checked ? "Aktif" : "Tidak Aktif"}
+              />
+            </FormGroup>
+          </Box>
+        </Box>
+        {checked ? (
+          <Controller
+            name="jumlahStok"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                margin="dense"
+                id="jumlahStok"
+                label="Jumlah Stok"
+                type="number"
+                fullWidth
+                variant="outlined"
+                error={Boolean(errors.jumlahStok)}
+                helperText={errors.jumlahStok ? errors.jumlahStok.message : " "}
+                {...field}
+              />
+            )}
+            rules={{ required: "Jumlah required" }}
+          />
+        ) : (
+          ""
+        )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button onClick={handleSubmit(onSubmit)} type="submit">
-          Confirm
+        <Button variant="outlined" onClick={closeModal}>
+          Kembali
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleSubmit(onSubmit)}
+          type="submit"
+        >
+          Konfirmasi
         </Button>
       </DialogActions>
     </Dialog>
