@@ -27,13 +27,13 @@ interface State {
   closeModal: () => void;
 }
 
-interface IStokModalProviderProps {
+interface IStokModalContext {
   children: ReactNode;
 }
 
 const StokModalContext = createContext<State | undefined>(undefined);
 
-const StokModalProvider = ({ children }: IStokModalProviderProps) => {
+const StokModalProvider = ({ children }: IStokModalContext) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [dataStok, setDataStok] = useState<{
     id: number;

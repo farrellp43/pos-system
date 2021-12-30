@@ -11,23 +11,46 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import NumberFormat from "react-number-format";
 import toRibuan from "../../utils/toRibuan";
+import { useTransaksi } from "../../context/transaksiContext";
 
 interface ICardBarangProps {
+  id: number;
   namaBarang: string;
   harga: number;
 }
 
-const CardBarang = ({ namaBarang, harga }: ICardBarangProps) => {
+interface ICart {
+  id: number;
+  namaBarang: string;
+  harga: number;
+  qty: number;
+}
+
+const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
   const [count, setCount] = useState(0);
   const [jumlahHarga, setJumlahHarga] = useState();
+  const { handleUpdate, handleRemove } = useTransaksi();
+
+  const addToCart = (data: ICart) => {
+    if (data.qty > 0) {
+      handleUpdate({ ...data });
+    } else if (data.qty === 0) {
+      handleRemove({ ...data });
+    }
+  };
 
   const incNum = () => {
     setCount(count + 1);
+    addToCart({ id, namaBarang, harga, qty: count + 1 });
   };
+
   const decNum = () => {
-    if (count > 0) setCount(count - 1);
-    else {
+    if (count > 0) {
+      setCount(count - 1);
+      addToCart({ id, namaBarang, harga, qty: count - 1 });
+    } else {
       setCount(0);
+      addToCart({ id, namaBarang, harga, qty: 0 });
     }
   };
 
@@ -75,17 +98,29 @@ const CardBarang = ({ namaBarang, harga }: ICardBarangProps) => {
             >
               <RemoveCircleIcon sx={{ fontSize: 50 }} />
             </IconButton>
-            <NumberFormat
+            {/* <NumberFormat
               value={count}
               customInput={TextField}
               thousandSeparator="."
               decimalSeparator=","
               size="small"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setCount(Number(event.target.value))
-              }
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setCount(Number(event.target.value.replace(".", "")));
+                console.log(Number(event.target.value.replace(".", "")));
+                console.log(event.target.value.replace(".", ""));
+              }}
               inputProps={{
-                maxlength: 3,
+                style: { textAlign: "center", backgroundColor: "white" },
+              }}
+            /> */}
+            <TextField
+              value={count}
+              type="number"
+              size="small"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setCount(Number(event.target.value));
+              }}
+              inputProps={{
                 style: { textAlign: "center", backgroundColor: "white" },
               }}
             />

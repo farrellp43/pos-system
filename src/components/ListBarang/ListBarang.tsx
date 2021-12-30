@@ -15,12 +15,21 @@ import React, { useState } from "react";
 import { originalRows } from "../../constants/mock";
 import CardBarang from "../CardBarang/CardBarang";
 import { useStokModal } from "../../context/stokModalContext";
+import { useTransaksi } from "../../context/transaksiContext";
 
 interface IListBarangProps {}
+
+interface ICart {
+  id: number;
+  namaBarang: string;
+  harga: number;
+  qty: number;
+}
 
 const ListBarang = (props: IListBarangProps) => {
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
+  const [totalHarga, serTotalHarga] = useState(0);
   const { openModal } = useStokModal();
 
   const handleClickOpen = () => {
@@ -91,6 +100,7 @@ const ListBarang = (props: IListBarangProps) => {
             barang.map((rows) => (
               <CardBarang
                 key={rows.id}
+                id={rows.id}
                 namaBarang={rows.namaBarang}
                 harga={rows.harga}
               />
