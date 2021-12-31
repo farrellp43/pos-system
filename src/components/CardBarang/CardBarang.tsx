@@ -119,6 +119,12 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
               size="small"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setCount(Number(event.target.value));
+                addToCart({
+                  id,
+                  namaBarang,
+                  harga,
+                  qty: Number(event.target.value),
+                });
               }}
               inputProps={{
                 style: { textAlign: "center", backgroundColor: "white" },
