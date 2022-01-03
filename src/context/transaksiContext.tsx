@@ -12,6 +12,10 @@ interface State {
   handleRemove: (data: ICart) => void;
   hitungHarga: () => void;
   totalHarga: number;
+  hitungBayar: (digit: number) => void;
+  bayar: number;
+  hitungKembalian: () => void;
+  kembalian: number;
 }
 
 interface ITransaksiContext {
@@ -30,40 +34,60 @@ const TransaksiContext = createContext<State | undefined>(undefined);
 const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [totalHarga, setTotalHarga] = useState(0);
+  const [bayar, setBayar] = useState(0);
+  const [kembalian, setKembalian] = useState(0);
 
-  useEffect(() => {
-    console.log(cart);
-    hitungHarga();
-  }, [cart]);
-
-  const hitungHarga = () => {
+  const hitungHarga = useCallback(() => {
     let total = 0;
     cart.forEach((c) => {
       total += c.harga * c.qty;
     });
     setTotalHarga(total);
-  };
+  }, [cart]);
 
-  const handleUpdate = (data: ICart) => {
-    const newCart = [...cart];
-    const isIncludes = cart.findIndex((c) => c.id === data.id);
+  const hitungBayar = useCallback((digit: number) => {
+    setBayar(digit);
+  }, []);
 
-    if (isIncludes < 0) {
-      newCart.push(data);
-      setCart(newCart);
-    } else {
-      const index = cart.findIndex((c) => {
-        return c.id === data.id;
-      });
-      newCart[index] = data;
-      setCart(newCart);
+  const hitungKembalian = useCallback(() => {
+    console.log(kembalian);
+    if (totalHarga > 0) {
+      const change = bayar - totalHarga;
+      setKembalian(change);
     }
-  };
+  }, [bayar, kembalian, totalHarga]);
 
-  const handleRemove = (data: ICart) => {
-    const newCart = cart.filter((c) => c.id !== data.id);
-    setCart(newCart);
-  };
+  const handleUpdate = useCallback(
+    (data: ICart) => {
+      const newCart = [...cart];
+      const isIncludes = cart.findIndex((c) => c.id === data.id);
+
+      if (isIncludes < 0) {
+        newCart.push(data);
+        setCart(newCart);
+      } else {
+        const index = cart.findIndex((c) => {
+          return c.id === data.id;
+        });
+        newCart[index] = data;
+        setCart(newCart);
+      }
+    },
+    [cart]
+  );
+
+  const handleRemove = useCallback(
+    (data: ICart) => {
+      const newCart = cart.filter((c) => c.id !== data.id);
+      setCart(newCart);
+    },
+    [cart]
+  );
+
+  useEffect(() => {
+    hitungHarga();
+    hitungKembalian();
+  }, [cart, bayar, totalHarga, hitungHarga, hitungKembalian]);
 
   const value = useMemo(
     () => ({
@@ -71,8 +95,21 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       handleRemove,
       totalHarga,
       hitungHarga,
+      hitungBayar,
+      bayar,
+      hitungKembalian,
+      kembalian,
     }),
-    [handleUpdate, handleRemove, totalHarga, hitungHarga]
+    [
+      handleUpdate,
+      handleRemove,
+      totalHarga,
+      hitungHarga,
+      hitungBayar,
+      bayar,
+      hitungKembalian,
+      kembalian,
+    ]
   );
 
   return (
