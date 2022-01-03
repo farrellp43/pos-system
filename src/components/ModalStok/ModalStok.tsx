@@ -9,7 +9,6 @@ import {
   Button,
   FormControlLabel,
   FormGroup,
-  Grid,
   Switch,
   TextField,
   Typography,
@@ -73,7 +72,7 @@ const ModalStok = () => {
         reset(initialValues);
       }
     }
-  }, [isOpenModal, dataStok]);
+  }, [isOpenModal, dataStok, reset, initialValues]);
 
   return (
     <Dialog

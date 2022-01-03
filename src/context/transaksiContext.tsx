@@ -51,10 +51,10 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
 
   const hitungKembalian = useCallback(() => {
     console.log(kembalian);
-    if (totalHarga > 0) {
-      const change = bayar - totalHarga;
-      setKembalian(change);
-    }
+    const change = bayar - totalHarga;
+    setKembalian(change);
+    // if (totalHarga > 0) {
+    // }
   }, [bayar, kembalian, totalHarga]);
 
   const handleUpdate = useCallback(

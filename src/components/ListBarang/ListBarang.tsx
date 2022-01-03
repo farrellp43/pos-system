@@ -5,9 +5,11 @@ import {
   Box,
   Typography,
   InputAdornment,
+  Stack,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import React, { useState } from "react";
 import { originalRows } from "../../constants/mock";
 import CardBarang from "../CardBarang/CardBarang";
@@ -52,15 +54,24 @@ const ListBarang = (props: IListBarangProps) => {
   };
 
   return (
-    <CardContent>
+    <CardContent
+      sx={{
+        padding: 0,
+      }}
+    >
       <Box
         display="grid"
-        gridTemplateRows="1fr 6fr 2fr"
+        gridTemplateRows="1fr 6fr 2fr 1fr"
         sx={{
           height: "80vh",
         }}
       >
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          margin={2}
+        >
           <TextField
             placeholder="Cari barang..."
             fullWidth
@@ -78,7 +89,7 @@ const ListBarang = (props: IListBarangProps) => {
                     startIcon={<AddIcon />}
                     size="large"
                     sx={{
-                      lineHeight: 2.7,
+                      lineHeight: 2.6,
                     }}
                   >
                     Barang
@@ -90,6 +101,7 @@ const ListBarang = (props: IListBarangProps) => {
           />
         </Box>
         <Box
+          marginX={2}
           sx={{
             overflowY: "scroll",
           }}
@@ -107,7 +119,7 @@ const ListBarang = (props: IListBarangProps) => {
             <Typography variant="h6">Barang tidak ditemukan</Typography>
           )}
         </Box>
-        <Box marginTop={2}>
+        <Box padding={2} borderTop={1}>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="h6">Total Tagihan</Typography>
             <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
@@ -120,6 +132,27 @@ const ListBarang = (props: IListBarangProps) => {
             <Typography variant="h6">Kembalian</Typography>
             <Typography variant="h6">{toRibuan(kembalian)}</Typography>
           </Box>
+        </Box>
+        <Box marginX={2}>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Button
+              variant="contained"
+              onClick={() => {}}
+              size="large"
+              fullWidth
+            >
+              Bayar
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => {}}
+              startIcon={<RestartAltIcon />}
+              size="large"
+              fullWidth
+            >
+              Reset
+            </Button>
+          </Stack>
         </Box>
       </Box>
     </CardContent>
