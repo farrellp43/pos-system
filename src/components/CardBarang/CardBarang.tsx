@@ -28,7 +28,6 @@ interface ICart {
 
 const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
   const [count, setCount] = useState(0);
-  const [jumlahHarga, setJumlahHarga] = useState();
   const { handleUpdate, handleRemove } = useTransaksi();
 
   const addToCart = (data: ICart) => {

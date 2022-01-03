@@ -1,12 +1,9 @@
 import {
-  Grid,
   TextField,
   Button,
   CardContent,
   Box,
   Typography,
-  Card,
-  IconButton,
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -16,6 +13,7 @@ import { originalRows } from "../../constants/mock";
 import CardBarang from "../CardBarang/CardBarang";
 import { useStokModal } from "../../context/stokModalContext";
 import { useTransaksi } from "../../context/transaksiContext";
+import toRibuan from "../../utils/toRibuan";
 
 interface IListBarangProps {}
 
@@ -29,8 +27,8 @@ interface ICart {
 const ListBarang = (props: IListBarangProps) => {
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
-  const [totalHarga, serTotalHarga] = useState(0);
   const { openModal } = useStokModal();
+  const { totalHarga } = useTransaksi();
 
   const handleClickOpen = () => {
     openModal();
@@ -57,7 +55,7 @@ const ListBarang = (props: IListBarangProps) => {
     <CardContent>
       <Box
         display="grid"
-        gridTemplateRows="1fr 6fr 1fr"
+        gridTemplateRows="1fr 6fr 2fr"
         sx={{
           height: "80vh",
         }}
@@ -109,8 +107,19 @@ const ListBarang = (props: IListBarangProps) => {
             <Typography variant="h6">Barang tidak ditemukan</Typography>
           )}
         </Box>
-        <Box>
-          <Typography variant="h6">Total Harga</Typography>
+        <Box marginTop={2}>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h6">Total Tagihan</Typography>
+            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h6">Uang Yang Dibayar</Typography>
+            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h6">Kembalian</Typography>
+            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+          </Box>
         </Box>
       </Box>
     </CardContent>
