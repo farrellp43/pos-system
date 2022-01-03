@@ -8,8 +8,8 @@ import "./Kalkulator.css";
 interface IKalkulatorProps {}
 
 const Kalkulator = (props: IKalkulatorProps) => {
+  const { hitungBayar, uangPas} = useTransaksi();
   const [display, setDisplay] = useState<string>("0");
-  const { hitungBayar } = useTransaksi();
 
   const onQuickActionClick = (digit: number) => {
     let newDisplay = Number(display) + digit;
@@ -109,8 +109,8 @@ const Kalkulator = (props: IKalkulatorProps) => {
           gap={2}
           p={2}
         >
-          <ButtonKalkulator onClick={() => onQuickActionClick(100)}>
-            100
+          <ButtonKalkulator onClick={() => uangPas()}>
+            Uang Pas
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(1000)}>
             1000

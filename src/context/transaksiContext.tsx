@@ -16,6 +16,7 @@ interface State {
   bayar: number;
   hitungKembalian: () => void;
   kembalian: number;
+  uangPas: () => void;
 }
 
 interface ITransaksiContext {
@@ -51,11 +52,19 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
 
   const hitungKembalian = useCallback(() => {
     console.log(kembalian);
-    const change = bayar - totalHarga;
-    setKembalian(change);
+    if (bayar === 0) {
+      setKembalian(0);
+    } else {
+      const change = bayar - totalHarga;
+      setKembalian(change);
+    }
     // if (totalHarga > 0) {
     // }
   }, [bayar, kembalian, totalHarga]);
+
+  const uangPas = useCallback(() => {
+    setBayar(totalHarga);
+  }, [totalHarga]);
 
   const handleUpdate = useCallback(
     (data: ICart) => {
@@ -99,6 +108,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       bayar,
       hitungKembalian,
       kembalian,
+      uangPas,
     }),
     [
       handleUpdate,
@@ -109,6 +119,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       bayar,
       hitungKembalian,
       kembalian,
+      uangPas,
     ]
   );
 
