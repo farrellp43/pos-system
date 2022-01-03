@@ -10,6 +10,8 @@ import React, {
 interface State {
   handleUpdate: (data: ICart) => void;
   handleRemove: (data: ICart) => void;
+  hitungHarga: () => void;
+  totalHarga: number;
 }
 
 interface ITransaksiContext {
@@ -27,14 +29,25 @@ const TransaksiContext = createContext<State | undefined>(undefined);
 
 const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [cart, setCart] = useState<ICart[]>([]);
+  const [totalHarga, setTotalHarga] = useState(0);
 
   useEffect(() => {
     console.log(cart);
+    hitungHarga();
   }, [cart]);
+
+  const hitungHarga = () => {
+    let total = 0;
+    cart.forEach((c) => {
+      total += c.harga * c.qty;
+    });
+    setTotalHarga(total);
+  };
 
   const handleUpdate = (data: ICart) => {
     const newCart = [...cart];
     const isIncludes = cart.findIndex((c) => c.id === data.id);
+
     if (isIncludes < 0) {
       newCart.push(data);
       setCart(newCart);
@@ -56,8 +69,10 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
     () => ({
       handleUpdate,
       handleRemove,
+      totalHarga,
+      hitungHarga,
     }),
-    [handleUpdate, handleRemove]
+    [handleUpdate, handleRemove, totalHarga, hitungHarga]
   );
 
   return (
