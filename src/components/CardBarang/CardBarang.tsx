@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import NumberFormat from "react-number-format";
 import toRibuan from "../../utils/toRibuan";
 import { useTransaksi } from "../../context/transaksiContext";
 

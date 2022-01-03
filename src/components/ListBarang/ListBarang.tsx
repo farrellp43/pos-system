@@ -17,18 +17,18 @@ import toRibuan from "../../utils/toRibuan";
 
 interface IListBarangProps {}
 
-interface ICart {
-  id: number;
-  namaBarang: string;
-  harga: number;
-  qty: number;
-}
+// interface ICart {
+//   id: number;
+//   namaBarang: string;
+//   harga: number;
+//   qty: number;
+// }
 
 const ListBarang = (props: IListBarangProps) => {
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
   const { openModal } = useStokModal();
-  const { totalHarga } = useTransaksi();
+  const { totalHarga, bayar, kembalian } = useTransaksi();
 
   const handleClickOpen = () => {
     openModal();
@@ -114,11 +114,11 @@ const ListBarang = (props: IListBarangProps) => {
           </Box>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="h6">Uang Yang Dibayar</Typography>
-            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+            <Typography variant="h6">{toRibuan(bayar)}</Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="h6">Kembalian</Typography>
-            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+            <Typography variant="h6">{toRibuan(kembalian)}</Typography>
           </Box>
         </Box>
       </Box>

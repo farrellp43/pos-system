@@ -1,6 +1,7 @@
 import { CardContent, Typography, Button, Box, TextField } from "@mui/material";
 import React, { useState } from "react";
 import NumberFormat from "react-number-format";
+import { useTransaksi } from "../../context/transaksiContext";
 import ButtonKalkulator from "../ButtonKalkulator/ButtonKalkulator";
 import "./Kalkulator.css";
 
@@ -8,6 +9,7 @@ interface IKalkulatorProps {}
 
 const Kalkulator = (props: IKalkulatorProps) => {
   const [display, setDisplay] = useState<string>("0");
+  const { hitungBayar } = useTransaksi();
 
   const onQuickActionClick = (digit: number) => {
     let newDisplay = Number(display) + digit;
@@ -48,7 +50,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
 
   const onDelButtonClick = () => {
     let value = Number(display);
-    if (value == 0) {
+    if (value === 0) {
       setDisplay("0");
     } else {
       let newDisplay = Math.floor(value / 10);
@@ -57,10 +59,8 @@ const Kalkulator = (props: IKalkulatorProps) => {
   };
 
   const onEnterButtonClick = () => {
-    console.log(display);
+    hitungBayar(Number(display));
   };
-
-  const val = display.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <CardContent>
