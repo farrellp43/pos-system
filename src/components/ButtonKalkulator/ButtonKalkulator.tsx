@@ -3,12 +3,13 @@ import React, { ReactNode } from "react";
 
 interface IButtonKalkulatorProps {
   children: ReactNode;
+  buttonVariant: "text" | "outlined" | "contained" | undefined;
   onClick: () => void;
 }
 
-const ButtonKalkulator = ({ children, onClick }: IButtonKalkulatorProps) => {
+const ButtonKalkulator = ({ children, onClick, buttonVariant }: IButtonKalkulatorProps) => {
   return (
-    <Button variant="outlined" onClick={onClick}>
+    <Button variant={buttonVariant} onClick={onClick}>
       <Typography variant="h6">{children}</Typography>
     </Button>
   );
