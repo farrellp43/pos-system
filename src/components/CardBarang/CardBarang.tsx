@@ -6,7 +6,7 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import toRibuan from "../../utils/toRibuan";
@@ -26,8 +26,14 @@ interface ICart {
 }
 
 const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
+  const { handleUpdate, handleRemove, totalHarga } = useTransaksi();
   const [count, setCount] = useState(0);
-  const { handleUpdate, handleRemove } = useTransaksi();
+
+  useEffect(() => {
+    if (totalHarga === 0) {
+      setCount(0);
+    }
+  }, [totalHarga]);
 
   const addToCart = (data: ICart) => {
     if (data.qty > 0) {
