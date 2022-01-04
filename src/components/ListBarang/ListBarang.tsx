@@ -11,6 +11,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import PercentIcon from "@mui/icons-material/Percent";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -33,10 +35,10 @@ interface IListBarangProps {}
 // }
 
 const ListBarang = (props: IListBarangProps) => {
+  const { openModal } = useStokModal();
+  const { totalHarga, bayar, kembalian, handleReset } = useTransaksi();
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
-  const { openModal } = useStokModal();
-  const { totalHarga, bayar, kembalian } = useTransaksi();
 
   const handleClickOpen = () => {
     openModal();
@@ -72,7 +74,7 @@ const ListBarang = (props: IListBarangProps) => {
         height: "90vh",
       }}
     >
-      <Box  alignItems="center" margin={2}>
+      <Box alignItems="center" margin={2}>
         <Stack direction="row" width="100%" spacing={2}>
           <Box width="40%">
             <TextField
@@ -155,17 +157,32 @@ const ListBarang = (props: IListBarangProps) => {
       </Box>
       <Box marginX={2} marginBottom={2}>
         <Stack direction="row" spacing={2} alignItems="center">
-          <Button variant="contained" onClick={() => {}} size="large" fullWidth>
-            Bayar
-          </Button>
           <Button
-            variant="outlined"
-            onClick={() => {}}
+            variant="text"
+            onClick={() => handleReset()}
             startIcon={<RestartAltIcon />}
             size="large"
             fullWidth
           >
             Reset
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {}}
+            startIcon={<PercentIcon />}
+            size="large"
+            fullWidth
+          >
+            Set Diskon
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {}}
+            startIcon={<ReceiptIcon />}
+            size="large"
+            fullWidth
+          >
+            Bayar
           </Button>
         </Stack>
       </Box>
