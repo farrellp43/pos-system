@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -42,13 +42,16 @@ const ModalStok = () => {
     setChecked(event.target.checked);
   };
 
-  const initialValues = {
-    id: 0,
-    namaBarang: "",
-    harga: 0,
-    jumlahStok: 0,
-    SKU: "",
-  };
+  const initialValues = useMemo(
+    () => ({
+      id: 0,
+      namaBarang: "",
+      harga: 0,
+      jumlahStok: 0,
+      SKU: "",
+    }),
+    []
+  );
 
   const {
     handleSubmit,
