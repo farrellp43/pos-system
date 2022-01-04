@@ -2,6 +2,7 @@ import {
   TextField,
   Button,
   CardContent,
+  Grid,
   Box,
   Typography,
   InputAdornment,
@@ -10,6 +11,11 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import React, { useState } from "react";
 import { originalRows } from "../../constants/mock";
 import CardBarang from "../CardBarang/CardBarang";
@@ -54,108 +60,117 @@ const ListBarang = (props: IListBarangProps) => {
   };
 
   return (
-    <CardContent
+    // <CardContent
+    //   sx={{
+    //     padding: 0,
+    //   }}
+    // >
+    <Box
+      display="grid"
+      gridTemplateRows="1fr 6fr 2fr 1fr"
       sx={{
-        padding: 0,
+        height: "90vh",
       }}
     >
-      <Box
-        display="grid"
-        gridTemplateRows="1fr 6fr 2fr 1fr"
-        sx={{
-          height: "80vh",
-        }}
-      >
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          margin={2}
-        >
-          <TextField
-            placeholder="Cari barang..."
-            fullWidth
-            size="medium"
-            value={nama}
-            onChange={filter}
-            InputProps={{
-              sx: { paddingRight: 0 },
-              startAdornment: <SearchIcon fontSize="small" />,
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Button
-                    variant="contained"
-                    onClick={handleClickOpen}
-                    startIcon={<AddIcon />}
-                    size="large"
-                    sx={{
-                      lineHeight: 2.6,
-                    }}
-                  >
-                    Barang
-                  </Button>
-                </InputAdornment>
-              ),
-            }}
-            variant="outlined"
-          />
-        </Box>
-        <Box
-          marginX={2}
-          sx={{
-            overflowY: "scroll",
-          }}
-        >
-          {barang && barang.length > 0 ? (
-            barang.map((rows) => (
-              <CardBarang
-                key={rows.id}
-                id={rows.id}
-                namaBarang={rows.namaBarang}
-                harga={rows.harga}
-              />
-            ))
-          ) : (
-            <Typography variant="h6">Barang tidak ditemukan</Typography>
-          )}
-        </Box>
-        <Box padding={2} borderTop={1}>
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">Total Tagihan</Typography>
-            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+      <Box  alignItems="center" margin={2}>
+        <Stack direction="row" width="100%" spacing={2}>
+          <Box width="40%">
+            <TextField
+              placeholder="Cari barang..."
+              fullWidth
+              size="small"
+              value={nama}
+              onChange={filter}
+              InputProps={{
+                startAdornment: <SearchIcon fontSize="small" />,
+              }}
+              variant="outlined"
+            />
           </Box>
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">Uang Yang Dibayar</Typography>
-            <Typography variant="h6">{toRibuan(bayar)}</Typography>
+          <Box width="30%">
+            <FormControl size="small" fullWidth>
+              <InputLabel id="demo-simple-select-helper-label">
+                Pilih Kategori
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Pilih Kategori"
+                onChange={() => {}}
+              >
+                <MenuItem value="Makanan">Makanan</MenuItem>
+                <MenuItem value="Minuman">Minuman</MenuItem>
+                <MenuItem value="Lain-lain">Lain-lain</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">Kembalian</Typography>
-            <Typography variant="h6">{toRibuan(kembalian)}</Typography>
-          </Box>
-        </Box>
-        <Box marginX={2}>
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Box width="30%">
             <Button
               variant="contained"
-              onClick={() => {}}
-              size="large"
+              onClick={handleClickOpen}
+              startIcon={<AddIcon />}
+              size="medium"
               fullWidth
+              sx={{
+                lineHeight: 2,
+              }}
             >
-              Bayar
+              Barang
             </Button>
-            <Button
-              variant="outlined"
-              onClick={() => {}}
-              startIcon={<RestartAltIcon />}
-              size="large"
-              fullWidth
-            >
-              Reset
-            </Button>
-          </Stack>
+          </Box>
+        </Stack>
+      </Box>
+      <Box
+        marginX={2}
+        sx={{
+          overflowY: "scroll",
+        }}
+      >
+        {barang && barang.length > 0 ? (
+          barang.map((rows) => (
+            <CardBarang
+              key={rows.id}
+              id={rows.id}
+              namaBarang={rows.namaBarang}
+              harga={rows.harga}
+            />
+          ))
+        ) : (
+          <Typography variant="h6">Barang tidak ditemukan</Typography>
+        )}
+      </Box>
+      <Box padding={2} borderTop={1}>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h6">Total Tagihan</Typography>
+          <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h6">Uang Yang Dibayar</Typography>
+          <Typography variant="h6">{toRibuan(bayar)}</Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h6">Kembalian</Typography>
+          <Typography variant="h6">{toRibuan(kembalian)}</Typography>
         </Box>
       </Box>
-    </CardContent>
+      <Box marginX={2} marginBottom={2}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Button variant="contained" onClick={() => {}} size="large" fullWidth>
+            Bayar
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {}}
+            startIcon={<RestartAltIcon />}
+            size="large"
+            fullWidth
+          >
+            Reset
+          </Button>
+        </Stack>
+      </Box>
+    </Box>
+    // </CardContent>
   );
 };
 

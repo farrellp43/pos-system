@@ -7,17 +7,17 @@ interface ITransaksi {}
 
 const Transaksi = (props: ITransaksi) => {
   return (
-    <Box margin={2}>
-      <Grid container spacing={2}>
+    <Box>
+      <Grid container>
         <Grid item md={6}>
-          <Card variant="outlined">
+          {/* <Card variant="outlined">
+          </Card> */}
             <ListBarang />
-          </Card>
         </Grid>
         <Grid item md={6}>
-          <Card variant="outlined">
+          {/* <Card variant="outlined">
+          </Card> */}
             <Kalkulator />
-          </Card>
         </Grid>
       </Grid>
       <ModalStok />

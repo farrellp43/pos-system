@@ -63,16 +63,17 @@ const Kalkulator = (props: IKalkulatorProps) => {
   };
 
   return (
-    <CardContent>
+    // <CardContent>
       <Box
         display="grid"
-        gridTemplateRows="1fr 1.5fr 4fr"
+        gridTemplateRows="1fr 1fr 4fr"
+        paddingX={2}
         sx={{
-          height: "80vh",
+          height: "90vh",
           rowGap: 1,
         }}
       >
-        <Box display="flex">
+        <Box display="flex" marginTop={2}>
           <TextField
             type="text"
             defaultValue="Rp"
@@ -107,35 +108,35 @@ const Kalkulator = (props: IKalkulatorProps) => {
           display="grid"
           gridTemplateColumns="auto auto auto auto"
           gap={2}
-          p={2}
+          paddingY={2}
         >
           <ButtonKalkulator onClick={() => uangPas()}>
             Uang Pas
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(1000)}>
-            1000
+            1.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(2000)}>
-            2000
+            2.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(5000)}>
-            5000
+            5.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(10000)}>
-            10000
+            10.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(20000)}>
-            20000
+            20.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(50000)}>
-            50000
+            50.000
           </ButtonKalkulator>
           <ButtonKalkulator onClick={() => onQuickActionClick(100000)}>
-            100000
+            100.000
           </ButtonKalkulator>
         </Box>
 
-        <Box display="grid" gridTemplateColumns="1fr 1fr 1fr 1fr">
+        <Box display="grid" gridTemplateColumns="1fr 1fr 1fr 1fr" marginBottom={2}>
           <ButtonKalkulator onClick={() => onDigitButtonClick(1)}>
             1
           </ButtonKalkulator>
@@ -182,7 +183,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
           </Button>
         </Box>
       </Box>
-    </CardContent>
+    // </CardContent>
   );
 };
 
