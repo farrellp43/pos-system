@@ -4,7 +4,7 @@ export const originalRows: IStokBarang[] = [
     {
       id: 1,
       harga: 10000,
-      namaBarang: "Jon",
+      namaBarang: "Mie Ayam Spesial Pak Geger",
       jumlahStok: 35,
       SKU: "JSnow@example.com",
     },
