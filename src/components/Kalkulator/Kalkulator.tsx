@@ -69,7 +69,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
       gridTemplateRows="1fr 1fr 4fr"
       paddingX={2}
       sx={{
-        height: "90vh",
+        height: "100vh",
         rowGap: 1,
       }}
     >
@@ -106,13 +106,16 @@ const Kalkulator = (props: IKalkulatorProps) => {
       </Box>
       <Box
         display="grid"
-        gridTemplateColumns="auto auto auto auto"
+        gridTemplateColumns="1fr 1fr 1fr 1fr"
         gap={2}
         paddingY={2}
       >
-        <ButtonKalkulator buttonVariant="contained" onClick={() => uangPas()}>
+        {/* <ButtonKalkulator buttonVariant="contained" onClick={() => uangPas()}>
           Uang Pas
-        </ButtonKalkulator>
+        </ButtonKalkulator> */}
+        <Button variant="contained" onClick={() => uangPas()}>
+          <Typography variant="h6" fontSize={16}>Uang Pas</Typography>
+        </Button>
         <ButtonKalkulator
           buttonVariant="contained"
           onClick={() => onQuickActionClick(1000)}
