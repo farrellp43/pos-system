@@ -19,8 +19,12 @@ interface State {
   uangPas: () => void;
   handleReset: () => void;
   openModalTransaksi: () => void;
-  closeModalTransaksi: () => void
+  closeModalTransaksi: () => void;
   isOpenModal: boolean;
+  hitungGrandTotal: () => void;
+  aturDiskon: (digit: number) => void;
+  diskon: number;
+  grandTotal: number;
 }
 
 interface ITransaksiContext {
@@ -43,6 +47,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [bayar, setBayar] = useState(0);
   const [kembalian, setKembalian] = useState(0);
   const [diskon, setDiskon] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const openModalTransaksi = () => {
     setIsOpenModal(true);
@@ -69,18 +74,38 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
     if (bayar === 0) {
       setKembalian(0);
     } else {
-      const change = bayar - totalHarga;
-      setKembalian(change);
+      if (diskon === 0) {
+        const change = bayar - totalHarga;
+        setKembalian(change);
+      } else {
+        const change = bayar - grandTotal;
+        setKembalian(change);
+      }
     }
     // if (totalHarga > 0) {
     // }
-  }, [bayar, kembalian, totalHarga]);
+  }, [bayar, diskon, grandTotal, kembalian, totalHarga]);
+
+  const aturDiskon = useCallback((digit: number) => {
+    setDiskon(digit);
+  }, []);
+
+  const hitungGrandTotal = useCallback(() => {
+    if (diskon === 0) {
+      setGrandTotal(0);
+    } else {
+      const potongan = diskon / 100;
+      const grand = totalHarga - totalHarga * potongan;
+      setGrandTotal(grand);
+    }
+  }, [diskon, totalHarga]);
 
   const handleReset = useCallback(() => {
     setCart([]);
     setTotalHarga(0);
     setBayar(0);
     setKembalian(0);
+    setDiskon(0);
   }, []);
 
   const uangPas = useCallback(() => {
@@ -117,7 +142,16 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   useEffect(() => {
     hitungHarga();
     hitungKembalian();
-  }, [cart, bayar, totalHarga, hitungHarga, hitungKembalian]);
+    hitungGrandTotal();
+  }, [
+    cart,
+    bayar,
+    totalHarga,
+    diskon,
+    hitungHarga,
+    hitungKembalian,
+    hitungGrandTotal,
+  ]);
 
   const value = useMemo(
     () => ({
@@ -134,6 +168,10 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       isOpenModal,
       openModalTransaksi,
       closeModalTransaksi,
+      aturDiskon,
+      diskon,
+      grandTotal,
+      hitungGrandTotal,
     }),
     [
       handleUpdate,
@@ -147,6 +185,10 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       uangPas,
       handleReset,
       isOpenModal,
+      aturDiskon,
+      diskon,
+      grandTotal,
+      hitungGrandTotal,
     ]
   );
 

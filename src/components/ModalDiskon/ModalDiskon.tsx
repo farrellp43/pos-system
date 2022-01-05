@@ -18,7 +18,8 @@ import toRibuan from "../../utils/toRibuan";
 interface IModalDiskonProps {}
 
 const ModalDiskon = (props: IModalDiskonProps) => {
-  const { totalHarga, isOpenModal, closeModalTransaksi } = useTransaksi();
+  const { totalHarga, isOpenModal, closeModalTransaksi, aturDiskon, grandTotal } =
+    useTransaksi();
 
   return (
     <Dialog fullWidth open={isOpenModal} onClose={closeModalTransaksi}>
@@ -43,6 +44,9 @@ const ModalDiskon = (props: IModalDiskonProps) => {
               placeholder="Diskon"
               size="small"
               type="number"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                aturDiskon(Number(event.target.value));
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -61,7 +65,7 @@ const ModalDiskon = (props: IModalDiskonProps) => {
             alignItems="center"
           >
             <Typography variant="h6">Harga Setelah Diskon</Typography>
-            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+            <Typography variant="h6">{toRibuan(grandTotal)}</Typography>
           </Box>
         </Box>
       </DialogContent>

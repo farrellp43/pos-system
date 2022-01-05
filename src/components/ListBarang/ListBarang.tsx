@@ -1,10 +1,4 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Stack,
-} from "@mui/material";
+import { TextField, Button, Box, Typography, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -32,7 +26,15 @@ interface IListBarangProps {}
 
 const ListBarang = (props: IListBarangProps) => {
   const { openModal } = useStokModal();
-  const { totalHarga, bayar, kembalian, handleReset, openModalTransaksi } = useTransaksi();
+  const {
+    totalHarga,
+    bayar,
+    kembalian,
+    handleReset,
+    openModalTransaksi,
+    diskon,
+    grandTotal
+  } = useTransaksi();
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
 
@@ -139,9 +141,25 @@ const ListBarang = (props: IListBarangProps) => {
       </Box>
       <Box padding={2} borderTop={1}>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="h6">Total Tagihan</Typography>
+          <Typography variant="h6">
+            {diskon ? "Subtotal" : "Total Tagihan"}
+          </Typography>
           <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
         </Box>
+        {diskon ? (
+          <React.Fragment>
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h6">Diskon ({diskon}%)</Typography>
+              <Typography variant="h6">- {toRibuan(totalHarga - (totalHarga - (totalHarga * (diskon / 100))))}</Typography>
+            </Box>
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h6">Total Tagihan</Typography>
+              <Typography variant="h6">{toRibuan(grandTotal)}</Typography>
+            </Box>
+          </React.Fragment>
+        ) : (
+          ""
+        )}
         <Box display="flex" justifyContent="space-between">
           <Typography variant="h6">Uang Yang Dibayar</Typography>
           <Typography variant="h6">{toRibuan(bayar)}</Typography>
