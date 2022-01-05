@@ -47,15 +47,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -99,18 +90,28 @@ export default function PageLayout({ children }: IProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: open ? "flex-end" : "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  }));
+  
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen(prev => !prev);
   };
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      {/* <CssBaseline /> */}
+      {/* <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -128,21 +129,21 @@ export default function PageLayout({ children }: IProps) {
             UKMLokal
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
+            {open ? (
               <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           <Link to="/">
-            <ListItem>
+            <ListItem button>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
@@ -151,7 +152,7 @@ export default function PageLayout({ children }: IProps) {
           </Link>
 
           <Link to="/stok">
-            <ListItem>
+            <ListItem button>
               <ListItemIcon>
                 <AllInboxIcon />
               </ListItemIcon>
@@ -159,7 +160,7 @@ export default function PageLayout({ children }: IProps) {
             </ListItem>
           </Link>
           <Link to="/laporan">
-            <ListItem>
+            <ListItem button>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
@@ -169,7 +170,7 @@ export default function PageLayout({ children }: IProps) {
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <DrawerHeader />
+        {/* <DrawerHeader /> */}
         {children}
       </Box>
     </Box>
