@@ -18,6 +18,9 @@ interface State {
   kembalian: number;
   uangPas: () => void;
   handleReset: () => void;
+  openModalTransaksi: () => void;
+  closeModalTransaksi: () => void
+  isOpenModal: boolean;
 }
 
 interface ITransaksiContext {
@@ -35,9 +38,19 @@ const TransaksiContext = createContext<State | undefined>(undefined);
 
 const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [cart, setCart] = useState<ICart[]>([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [totalHarga, setTotalHarga] = useState(0);
   const [bayar, setBayar] = useState(0);
   const [kembalian, setKembalian] = useState(0);
+  const [diskon, setDiskon] = useState(0);
+
+  const openModalTransaksi = () => {
+    setIsOpenModal(true);
+  };
+
+  const closeModalTransaksi = () => {
+    setIsOpenModal(false);
+  };
 
   const hitungHarga = useCallback(() => {
     let total = 0;
@@ -118,6 +131,9 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       kembalian,
       uangPas,
       handleReset,
+      isOpenModal,
+      openModalTransaksi,
+      closeModalTransaksi,
     }),
     [
       handleUpdate,
@@ -130,6 +146,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       kembalian,
       uangPas,
       handleReset,
+      isOpenModal,
     ]
   );
 

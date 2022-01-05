@@ -1,11 +1,8 @@
 import {
   TextField,
   Button,
-  CardContent,
-  Grid,
   Box,
   Typography,
-  InputAdornment,
   Stack,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -15,7 +12,6 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import PercentIcon from "@mui/icons-material/Percent";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import React, { useState } from "react";
@@ -36,7 +32,7 @@ interface IListBarangProps {}
 
 const ListBarang = (props: IListBarangProps) => {
   const { openModal } = useStokModal();
-  const { totalHarga, bayar, kembalian, handleReset } = useTransaksi();
+  const { totalHarga, bayar, kembalian, handleReset, openModalTransaksi } = useTransaksi();
   const [nama, setNama] = useState("");
   const [barang, setBarang] = useState(originalRows);
 
@@ -69,9 +65,9 @@ const ListBarang = (props: IListBarangProps) => {
     // >
     <Box
       display="grid"
-      gridTemplateRows="1fr 6fr 2fr 1fr"
+      gridTemplateRows="1fr 6fr 3fr 1fr"
       sx={{
-        height: "90vh",
+        height: "100vh",
       }}
     >
       <Box alignItems="center" margin={2}>
@@ -168,7 +164,7 @@ const ListBarang = (props: IListBarangProps) => {
           </Button>
           <Button
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => openModalTransaksi()}
             startIcon={<PercentIcon />}
             size="large"
             fullWidth
