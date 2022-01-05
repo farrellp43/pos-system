@@ -5,7 +5,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
   InputAdornment,
   TextField,
   Typography,
@@ -18,11 +17,17 @@ import toRibuan from "../../utils/toRibuan";
 interface IModalDiskonProps {}
 
 const ModalDiskon = (props: IModalDiskonProps) => {
-  const { totalHarga, isOpenModal, closeModalTransaksi, aturDiskon, grandTotal } =
-    useTransaksi();
+  const {
+    totalHarga,
+    isOpenModalTransaksi,
+    closeModalTransaksi,
+    aturDiskon,
+    grandTotal,
+    diskon,
+  } = useTransaksi();
 
   return (
-    <Dialog fullWidth open={isOpenModal} onClose={closeModalTransaksi}>
+    <Dialog fullWidth open={isOpenModalTransaksi} onClose={closeModalTransaksi}>
       <DialogTitle>Atur Diskon</DialogTitle>
       <DialogContent>
         <Box display="grid" gridTemplateRows="1fr 1fr 1fr">
@@ -42,6 +47,7 @@ const ModalDiskon = (props: IModalDiskonProps) => {
             <Typography variant="h6">Set Diskon</Typography>
             <TextField
               placeholder="Diskon"
+              value={diskon}
               size="small"
               type="number"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +76,9 @@ const ModalDiskon = (props: IModalDiskonProps) => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeModalTransaksi}>Close</Button>
+        <Button variant="contained" onClick={closeModalTransaksi}>
+          Konfirmasi
+        </Button>
       </DialogActions>
     </Dialog>
   );
