@@ -3,6 +3,7 @@ import ListBarang from "../../components/ListBarang/ListBarang";
 import Kalkulator from "../../components/Kalkulator/Kalkulator";
 import ModalStok from "../../components/ModalStok/ModalStok";
 import ModalDiskon from "../../components/ModalDiskon/ModalDiskon";
+import ModalBayar from "../../components/ModalBayar/ModalBayar";
 
 interface ITransaksi {}
 
@@ -23,6 +24,7 @@ const Transaksi = (props: ITransaksi) => {
       </Grid>
       <ModalStok />
       <ModalDiskon />
+      <ModalBayar />
     </Box>
   );
 };

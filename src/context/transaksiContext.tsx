@@ -20,7 +20,10 @@ interface State {
   handleReset: () => void;
   openModalTransaksi: () => void;
   closeModalTransaksi: () => void;
-  isOpenModal: boolean;
+  isOpenModalTransaksi: boolean;
+  openModalBayar: () => void;
+  closeModalBayar: () => void;
+  isOpenModalBayar: boolean;
   hitungGrandTotal: () => void;
   aturDiskon: (digit: number) => void;
   diskon: number;
@@ -42,7 +45,8 @@ const TransaksiContext = createContext<State | undefined>(undefined);
 
 const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [cart, setCart] = useState<ICart[]>([]);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModalTransaksi, setisOpenModalTransaksi] = useState(false);
+  const [isOpenModalBayar, setisOpenModalBayar] = useState(false);
   const [totalHarga, setTotalHarga] = useState(0);
   const [bayar, setBayar] = useState(0);
   const [kembalian, setKembalian] = useState(0);
@@ -50,11 +54,19 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [grandTotal, setGrandTotal] = useState(0);
 
   const openModalTransaksi = () => {
-    setIsOpenModal(true);
+    setisOpenModalTransaksi(true);
   };
 
   const closeModalTransaksi = () => {
-    setIsOpenModal(false);
+    setisOpenModalTransaksi(false);
+  };
+
+  const openModalBayar = () => {
+    setisOpenModalBayar(true);
+  };
+
+  const closeModalBayar = () => {
+    setisOpenModalBayar(false);
   };
 
   const hitungHarga = useCallback(() => {
@@ -91,13 +103,13 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   }, []);
 
   const hitungGrandTotal = useCallback(() => {
-    if (diskon === 0) {
-      setGrandTotal(0);
-    } else {
+    // if (diskon === 0) {
+    //   setGrandTotal(0);
+    // } else {
       const potongan = diskon / 100;
       const grand = totalHarga - totalHarga * potongan;
       setGrandTotal(grand);
-    }
+    // }
   }, [diskon, totalHarga]);
 
   const handleReset = useCallback(() => {
@@ -165,9 +177,12 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       kembalian,
       uangPas,
       handleReset,
-      isOpenModal,
+      isOpenModalTransaksi,
       openModalTransaksi,
       closeModalTransaksi,
+      isOpenModalBayar,
+      openModalBayar,
+      closeModalBayar,
       aturDiskon,
       diskon,
       grandTotal,
@@ -184,7 +199,8 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       kembalian,
       uangPas,
       handleReset,
-      isOpenModal,
+      isOpenModalTransaksi,
+      isOpenModalBayar,
       aturDiskon,
       diskon,
       grandTotal,

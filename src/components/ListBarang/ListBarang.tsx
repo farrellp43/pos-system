@@ -32,6 +32,7 @@ const ListBarang = (props: IListBarangProps) => {
     kembalian,
     handleReset,
     openModalTransaksi,
+    openModalBayar,
     diskon,
     grandTotal
   } = useTransaksi();
@@ -191,7 +192,7 @@ const ListBarang = (props: IListBarangProps) => {
           </Button>
           <Button
             variant="contained"
-            onClick={() => {}}
+            onClick={() => openModalBayar()}
             startIcon={<ReceiptIcon />}
             size="large"
             fullWidth
