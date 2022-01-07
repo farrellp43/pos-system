@@ -106,9 +106,9 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
     // if (diskon === 0) {
     //   setGrandTotal(0);
     // } else {
-      const potongan = diskon / 100;
-      const grand = totalHarga - totalHarga * potongan;
-      setGrandTotal(grand);
+    const potongan = diskon / 100;
+    const grand = totalHarga - totalHarga * potongan;
+    setGrandTotal(grand);
     // }
   }, [diskon, totalHarga]);
 
@@ -121,8 +121,12 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   }, []);
 
   const uangPas = useCallback(() => {
-    setBayar(totalHarga);
-  }, [totalHarga]);
+    if (diskon === 0) {
+      setBayar(totalHarga);
+    } else {
+      setBayar(grandTotal);
+    }
+  }, [diskon, grandTotal, totalHarga]);
 
   const handleUpdate = useCallback(
     (data: ICart) => {

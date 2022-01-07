@@ -9,7 +9,7 @@ import "./Kalkulator.css";
 interface IKalkulatorProps {}
 
 const Kalkulator = (props: IKalkulatorProps) => {
-  const { hitungBayar, uangPas } = useTransaksi();
+  const { hitungBayar, uangPas, diskon, totalHarga, grandTotal } = useTransaksi();
   const [display, setDisplay] = useState<string>("0");
 
   const onQuickActionClick = (digit: number) => {
@@ -62,6 +62,15 @@ const Kalkulator = (props: IKalkulatorProps) => {
   const onEnterButtonClick = () => {
     hitungBayar(Number(display));
     setDisplay("0");
+  };
+
+  const onUangPasClick = () => {
+    uangPas();
+    if (diskon === 0) {
+      setDisplay(String(totalHarga));
+    } else {
+      setDisplay(String(grandTotal))
+    }
   };
 
   return (
@@ -117,8 +126,8 @@ const Kalkulator = (props: IKalkulatorProps) => {
           Uang Pas
         </ButtonKalkulator> */}
         <Button
-        variant="outlined"
-          onClick={() => uangPas()}
+          variant="outlined"
+          onClick={() => onUangPasClick()}
           sx={{
             backgroundColor: "#F6FBF8",
           }}
