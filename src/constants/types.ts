@@ -5,3 +5,20 @@ export interface IStokBarang {
   jumlahStok: number;
   SKU: string;
 }
+
+export interface IInvoice {
+  id: string;
+  nomorInvoice: string;
+  saldo: number;
+  namaToko: string;
+  alamatToko: string;
+  email: string;
+  noTelp: number;
+  tanggalTransaksi: string;
+  barang: {
+    id: string;
+    namaBarang: string;
+    qty: number;
+    harga: number;
+  }[];
+}
