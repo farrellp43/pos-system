@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import NumberFormat from "react-number-format";
 import { useTransaksi } from "../../context/transaksiContext";
 import ButtonKalkulator from "../ButtonKalkulator/ButtonKalkulator";
+import ButtonNumKalkulator from "../ButtonNumKalkulator/ButtonNumKalkulator";
 import "./Kalkulator.css";
 
 interface IKalkulatorProps {}
@@ -60,6 +61,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
 
   const onEnterButtonClick = () => {
     hitungBayar(Number(display));
+    setDisplay("0");
   };
 
   return (
@@ -80,7 +82,8 @@ const Kalkulator = (props: IKalkulatorProps) => {
           inputProps={{
             readOnly: true,
             style: {
-              fontSize: "50px",
+              fontSize: "60px",
+              fontWeight: "bold",
               textAlign: "center",
               width: "150px",
             },
@@ -100,7 +103,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
             setDisplay(event.target.value);
           }}
           inputProps={{
-            style: { fontSize: "50px", textAlign: "right" },
+            style: { fontSize: "60px", fontWeight: "bold", textAlign: "right" },
           }}
         />
       </Box>
@@ -113,8 +116,16 @@ const Kalkulator = (props: IKalkulatorProps) => {
         {/* <ButtonKalkulator buttonVariant="contained" onClick={() => uangPas()}>
           Uang Pas
         </ButtonKalkulator> */}
-        <Button variant="contained" onClick={() => uangPas()}>
-          <Typography variant="h6" fontSize={16}>Uang Pas</Typography>
+        <Button
+        variant="outlined"
+          onClick={() => uangPas()}
+          sx={{
+            backgroundColor: "#F6FBF8",
+          }}
+        >
+          <Typography variant="h6" fontSize={16}>
+            Uang Pas
+          </Typography>
         </Button>
         <ButtonKalkulator
           buttonVariant="contained"
@@ -166,83 +177,89 @@ const Kalkulator = (props: IKalkulatorProps) => {
         marginBottom={2}
         gap={2}
       >
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(1)}
         >
           1
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(2)}
         >
           2
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(3)}
         >
           3
-        </ButtonKalkulator>
+        </ButtonNumKalkulator>
         <ButtonKalkulator buttonVariant="contained" onClick={onDelButtonClick}>
           Del
         </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(4)}
         >
           4
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(5)}
         >
           5
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(6)}
         >
           6
-        </ButtonKalkulator>
+        </ButtonNumKalkulator>
         <ButtonKalkulator
           buttonVariant="contained"
           onClick={onClearButtonClick}
         >
           C
         </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(7)}
         >
           7
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(8)}
         >
           8
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="outlined"
+        </ButtonNumKalkulator>
+        <ButtonNumKalkulator
+          buttonVariant="text"
           onClick={() => onDigitButtonClick(9)}
         >
           9
-        </ButtonKalkulator>
+        </ButtonNumKalkulator>
         <Button
           variant="contained"
           className="is-enter"
           onClick={onEnterButtonClick}
+          sx={{
+            backgroundColor: "primary",
+          }}
         >
           <Typography variant="h6">Enter</Typography>
         </Button>
-        <ButtonKalkulator buttonVariant="outlined" onClick={onZeroButtonClick}>
+        <ButtonNumKalkulator buttonVariant="text" onClick={onZeroButtonClick}>
           0
-        </ButtonKalkulator>
+        </ButtonNumKalkulator>
         <Button
-          variant="outlined"
+          variant="text"
           className="is-000"
           onClick={onTripleZeroButtonClick}
+          sx={{
+            backgroundColor: "#F6FBF8",
+          }}
         >
           <Typography variant="h6">000</Typography>
         </Button>

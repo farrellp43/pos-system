@@ -1,14 +1,18 @@
 import {
   Card,
   CardContent,
+  Button,
   Box,
+  Stack,
   Typography,
   IconButton,
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import RemoveIcon from "@mui/icons-material/Remove";
 import toRibuan from "../../utils/toRibuan";
 import { useTransaksi } from "../../context/transaksiContext";
 
@@ -62,47 +66,29 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
     <Card
       variant="outlined"
       sx={{
-        marginBottom: "2px",
+        marginBottom: 1,
+        padding: 2,
       }}
     >
-      <CardContent
-        sx={{
-          backgroundColor: count > 0 ? "#1976D2" : "white",
-        }}
-      >
-        <Box display="flex" justifyContent="space-between">
-          <Box>
-            <Typography
-              variant="h5"
-              component="div"
-              color={count > 0 ? "white" : "black"}
-            >
+      <Box>
+        <Stack direction="row" width="100%" spacing={2}>
+          <Box width="50%">
+            <Typography variant="h6" component="div">
               {namaBarang}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color={count > 0 ? "white" : "#545E6A"}
-            >
-              {toRibuan(harga)}
-            </Typography>
+            <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
           </Box>
           <Box
-            sx={{
-              width: "200px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            width="50%"
           >
-            <IconButton
-              onClick={decNum}
-              sx={{
-                color: count > 0 ? "white" : "#1976D2",
-              }}
-            >
-              <RemoveCircleIcon sx={{ fontSize: 50 }} />
-            </IconButton>
-            {/* <NumberFormat
+            <Stack direction="row" width="100%" spacing={2} alignItems="center">
+              <Button onClick={decNum} variant="outlined">
+                <RemoveIcon color="primary" sx={{ fontSize: 30 }} />
+              </Button>
+              {/* <NumberFormat
               value={count}
               customInput={TextField}
               thousandSeparator="."
@@ -117,34 +103,36 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
                 style: { textAlign: "center", backgroundColor: "white" },
               }}
             /> */}
-            <TextField
-              value={count}
-              type="number"
-              size="small"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setCount(Number(event.target.value));
-                addToCart({
-                  id,
-                  namaBarang,
-                  harga,
-                  qty: Number(event.target.value),
-                });
-              }}
-              inputProps={{
-                style: { textAlign: "center", backgroundColor: "white" },
-              }}
-            />
-            <IconButton
-              onClick={incNum}
-              sx={{
-                color: count > 0 ? "white" : "#1976D2",
-              }}
-            >
-              <AddCircleIcon sx={{ fontSize: 50 }} />
-            </IconButton>
+              <TextField
+                value={count}
+                type="number"
+                size="small"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setCount(Number(event.target.value));
+                  addToCart({
+                    id,
+                    namaBarang,
+                    harga,
+                    qty: Number(event.target.value),
+                  });
+                }}
+                inputProps={{
+                  style: { textAlign: "center", backgroundColor: "white" },
+                }}
+              />
+              <Button
+                onClick={incNum}
+                variant="contained"
+                sx={{
+                  color: count > 0 ? "white" : "primary",
+                }}
+              >
+                <AddIcon color="inherit" sx={{ fontSize: 30 }} />
+              </Button>
+            </Stack>
           </Box>
-        </Box>
-      </CardContent>
+        </Stack>
+      </Box>
     </Card>
   );
 };

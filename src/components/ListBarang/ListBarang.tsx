@@ -91,7 +91,7 @@ const ListBarang = (props: IListBarangProps) => {
           <Box width="30%">
             <FormControl size="small" fullWidth>
               <InputLabel id="demo-simple-select-helper-label">
-                Pilih Kategori
+                Kategori
               </InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
@@ -116,7 +116,7 @@ const ListBarang = (props: IListBarangProps) => {
                 lineHeight: 2,
               }}
             >
-              Barang
+              Tambah
             </Button>
           </Box>
         </Stack>

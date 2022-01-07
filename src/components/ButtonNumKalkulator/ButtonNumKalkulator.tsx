@@ -1,6 +1,5 @@
 import { Button, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
-// import "./ButtonKalkulator.tsx";
 
 interface IButtonKalkulatorProps {
   children: ReactNode;
@@ -8,25 +7,22 @@ interface IButtonKalkulatorProps {
   onClick: () => void;
 }
 
-const ButtonKalkulator = ({
+const ButtonNumKalkulator = ({
   children,
   onClick,
   buttonVariant,
 }: IButtonKalkulatorProps) => {
   return (
     <Button
-      className="calcButton"
       variant={buttonVariant}
       onClick={onClick}
       sx={{
-        backgroundColor: "primary",
+        backgroundColor: "#F6FBF8",
       }}
     >
-      <Typography className="textButton" variant="h6">
-        {children}
-      </Typography>
+      <Typography variant="h6">{children}</Typography>
     </Button>
   );
 };
 
-export default ButtonKalkulator;
+export default ButtonNumKalkulator;

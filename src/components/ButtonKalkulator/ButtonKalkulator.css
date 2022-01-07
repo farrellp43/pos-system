@@ -1,0 +1,7 @@
+.calcButton {
+    color: #87CBAC;
+}
+
+.calcButton > .textButton {
+    color: white;
+}
