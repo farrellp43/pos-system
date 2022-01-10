@@ -28,6 +28,8 @@ interface State {
   aturDiskon: (digit: number) => void;
   diskon: number;
   grandTotal: number;
+  addToCart: (data: ICart) => void;
+  cart: ICart[];
 }
 
 interface ITransaksiContext {
@@ -52,6 +54,10 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const [kembalian, setKembalian] = useState(0);
   const [diskon, setDiskon] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+
+  const addToCart = (data: ICart) => {
+    setCart((prev) => [...prev, data]);
+  };
 
   const openModalTransaksi = () => {
     setisOpenModalTransaksi(true);
@@ -82,7 +88,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   }, []);
 
   const hitungKembalian = useCallback(() => {
-    console.log(kembalian);
+    // console.log(kembalian);
     if (bayar === 0) {
       setKembalian(0);
     } else {
@@ -96,7 +102,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
     }
     // if (totalHarga > 0) {
     // }
-  }, [bayar, diskon, grandTotal, kembalian, totalHarga]);
+  }, [bayar, diskon, grandTotal, totalHarga]);
 
   const aturDiskon = useCallback((digit: number) => {
     setDiskon(digit);
@@ -115,9 +121,6 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
   const handleReset = useCallback(() => {
     setCart([]);
     setTotalHarga(0);
-    setBayar(0);
-    setKembalian(0);
-    setDiskon(0);
   }, []);
 
   const uangPas = useCallback(() => {
@@ -191,6 +194,8 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       diskon,
       grandTotal,
       hitungGrandTotal,
+      addToCart,
+      cart,
     }),
     [
       handleUpdate,
@@ -209,6 +214,7 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
       diskon,
       grandTotal,
       hitungGrandTotal,
+      cart,
     ]
   );
 
