@@ -1,18 +1,6 @@
-import {
-  Card,
-  CardContent,
-  Button,
-  Box,
-  Stack,
-  Typography,
-  IconButton,
-  TextField,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { Card, Button, Box, Typography } from "@mui/material";
+import React from "react";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import toRibuan from "../../utils/toRibuan";
 import { useTransaksi } from "../../context/transaksiContext";
 
@@ -22,45 +10,19 @@ interface ICardBarangProps {
   harga: number;
 }
 
-interface ICart {
-  id: number;
-  namaBarang: string;
-  harga: number;
-  qty: number;
-}
+// interface ICart {
+//   id: number;
+//   namaBarang: string;
+//   harga: number;
+//   qty: number;
+// }
 
 const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
-  const { handleUpdate, handleRemove, totalHarga } = useTransaksi();
-  const [count, setCount] = useState(0);
+  const { addToCart, cart } = useTransaksi();
 
-  useEffect(() => {
-    if (totalHarga === 0) {
-      setCount(0);
-    }
-  }, [totalHarga]);
-
-  const addToCart = (data: ICart) => {
-    if (data.qty > 0) {
-      handleUpdate({ ...data });
-    } else if (data.qty === 0) {
-      handleRemove({ ...data });
-    }
-  };
-
-  const incNum = () => {
-    setCount(count + 1);
-    addToCart({ id, namaBarang, harga, qty: count + 1 });
-  };
-
-  const decNum = () => {
-    if (count > 0) {
-      setCount(count - 1);
-      addToCart({ id, namaBarang, harga, qty: count - 1 });
-    } else {
-      setCount(0);
-      addToCart({ id, namaBarang, harga, qty: 0 });
-    }
-  };
+  // useEffect(() => {
+  //   console.log(cart);
+  // }, [cart]);
 
   return (
     <Card
@@ -70,25 +32,18 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
         padding: 2,
       }}
     >
-      <Box>
-        <Stack direction="row" width="100%" spacing={2}>
-          <Box width="50%">
-            <Typography variant="h6" component="div">
-              {namaBarang}
-            </Typography>
-            <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
-          </Box>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            width="50%"
-          >
-            <Stack direction="row" width="100%" spacing={2} alignItems="center">
-              <Button onClick={decNum} variant="outlined">
+      <Box display="flex" justifyContent="space-between">
+        <Box>
+          <Typography variant="h6" component="div">
+            {namaBarang}
+          </Typography>
+          <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
+        </Box>
+        <Box display="flex" alignItems="center">
+          {/* <Button onClick={decNum} variant="outlined">
                 <RemoveIcon color="primary" sx={{ fontSize: 30 }} />
-              </Button>
-              {/* <NumberFormat
+              </Button> */}
+          {/* <NumberFormat
               value={count}
               customInput={TextField}
               thousandSeparator="."
@@ -103,7 +58,7 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
                 style: { textAlign: "center", backgroundColor: "white" },
               }}
             /> */}
-              <TextField
+          {/* <TextField
                 value={count}
                 type="number"
                 size="small"
@@ -119,19 +74,23 @@ const CardBarang = ({ id, namaBarang, harga }: ICardBarangProps) => {
                 inputProps={{
                   style: { textAlign: "center", backgroundColor: "white" },
                 }}
-              />
-              <Button
-                onClick={incNum}
-                variant="contained"
-                sx={{
-                  color: count > 0 ? "white" : "primary",
-                }}
-              >
-                <AddIcon color="inherit" sx={{ fontSize: 30 }} />
-              </Button>
-            </Stack>
-          </Box>
-        </Stack>
+              /> */}
+          <Button
+            disabled={cart.findIndex((c) => c.id === id) >= 0}
+            variant="contained"
+            onClick={() =>
+              addToCart({
+                id,
+                namaBarang,
+                harga,
+                qty: 1,
+              })
+            }
+            startIcon={<AddShoppingCartIcon />}
+          >
+            Pesan
+          </Button>
+        </Box>
       </Box>
     </Card>
   );

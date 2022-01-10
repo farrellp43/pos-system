@@ -1,18 +1,12 @@
 import {
   Dialog,
-  DialogContent,
-  Box,
-  Typography,
-  DialogActions,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
   Divider,
+  Grid,
 } from "@mui/material";
 import React from "react";
 import { useTransaksi } from "../../context/transaksiContext";
-import toRibuan from "../../utils/toRibuan";
+import InfoTagihan from "../InfoTagihan/InfoTagihan";
+import Kalkulator from "../Kalkulator/Kalkulator";
 
 interface IModalBayarProps {}
 
@@ -20,85 +14,36 @@ const ModalBayar = (props: IModalBayarProps) => {
   const {
     isOpenModalBayar,
     closeModalBayar,
-    totalHarga,
-    diskon,
-    grandTotal,
-    bayar,
-    kembalian,
   } = useTransaksi();
 
   return (
-    <Dialog fullWidth open={isOpenModalBayar} onClose={closeModalBayar}>
-      <DialogContent>
-        <Box justifyContent="space-between">
-          <Box display="grid" gridTemplateRows="1fr 1fr 1fr">
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">Subtotal</Typography>
-              <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">Diskon ({diskon}%)</Typography>
-              <Typography variant="h6">
-                -{" "}
-                {toRibuan(
-                  totalHarga - (totalHarga - totalHarga * (diskon / 100))
-                )}
-              </Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">Total Tagihan</Typography>
-              <Typography variant="h6">{toRibuan(grandTotal)}</Typography>
-            </Box>
-          </Box>
-          <Divider />
-          <Box display="grid" gridTemplateRows="1fr 1fr">
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">Uang Yang Dibayar</Typography>
-              <Typography variant="h6">{toRibuan(bayar)}</Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">Kembalian</Typography>
-              <Typography variant="h6">{toRibuan(kembalian)}</Typography>
-            </Box>
-          </Box>
-          <Box>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="Print struk"
-              />
-            </FormGroup>
-          </Box>
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button variant="outlined" onClick={closeModalBayar}>
-          Batal
-        </Button>
-        <Button variant="contained" onClick={() => {}}>
-          Konfirmasi
-        </Button>
-      </DialogActions>
+    <Dialog
+      maxWidth="lg"
+      fullWidth
+      open={isOpenModalBayar}
+      onClose={closeModalBayar}
+      PaperProps={{
+        sx: {
+          minHeight: "90vh",
+          maxHeight: "90vh",
+        },
+      }}
+    >
+      <Grid container>
+        <Grid item lg={6}>
+          <Kalkulator />
+        </Grid>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{
+            marginRight: "-1px",
+          }}
+        />
+        <Grid item lg={6}>
+          <InfoTagihan />
+        </Grid>
+      </Grid>
     </Dialog>
   );
 };

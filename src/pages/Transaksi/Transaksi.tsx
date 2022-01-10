@@ -1,9 +1,9 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Divider } from "@mui/material";
 import ListBarang from "../../components/ListBarang/ListBarang";
-import Kalkulator from "../../components/Kalkulator/Kalkulator";
 import ModalStok from "../../components/ModalStok/ModalStok";
 import ModalDiskon from "../../components/ModalDiskon/ModalDiskon";
 import ModalBayar from "../../components/ModalBayar/ModalBayar";
+import ListPesan from "../../components/ListPesan/ListPesan";
 
 interface ITransaksi {}
 
@@ -16,10 +16,18 @@ const Transaksi = (props: ITransaksi) => {
           </Card> */}
           <ListBarang />
         </Grid>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{
+            marginRight: "-1px",
+          }}
+        />
         <Grid item md={6}>
           {/* <Card variant="outlined">
           </Card> */}
-          <Kalkulator />
+          {/* <Kalkulator /> */}
+          <ListPesan />
         </Grid>
       </Grid>
       <ModalStok />
