@@ -1,4 +1,10 @@
-import { Typography, Button, Box, TextField } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Box,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import React, { useState } from "react";
 import NumberFormat from "react-number-format";
 import { useTransaksi } from "../../context/transaksiContext";
@@ -9,7 +15,8 @@ import "./Kalkulator.css";
 interface IKalkulatorProps {}
 
 const Kalkulator = (props: IKalkulatorProps) => {
-  const { hitungBayar, uangPas, diskon, totalHarga, grandTotal } = useTransaksi();
+  const { hitungBayar, uangPas, diskon, totalHarga, grandTotal } =
+    useTransaksi();
   const [display, setDisplay] = useState<string>("0");
 
   const onQuickActionClick = (digit: number) => {
@@ -69,7 +76,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
     if (diskon === 0) {
       setDisplay(String(totalHarga));
     } else {
-      setDisplay(String(grandTotal))
+      setDisplay(String(grandTotal));
     }
   };
 
@@ -80,24 +87,11 @@ const Kalkulator = (props: IKalkulatorProps) => {
       gridTemplateRows="1fr 1fr 4fr"
       paddingX={2}
       sx={{
-        height: "100vh",
+        height: "90vh",
         rowGap: 1,
       }}
     >
       <Box display="flex" marginTop={2}>
-        <TextField
-          type="text"
-          defaultValue="Rp"
-          inputProps={{
-            readOnly: true,
-            style: {
-              fontSize: "60px",
-              fontWeight: "bold",
-              textAlign: "center",
-              width: "150px",
-            },
-          }}
-        />
         <NumberFormat
           value={display}
           customInput={TextField}
@@ -109,7 +103,15 @@ const Kalkulator = (props: IKalkulatorProps) => {
               setDisplay("0");
               return;
             }
+            hitungBayar(Number(event.target.value));
             setDisplay(event.target.value);
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Typography fontSize="60px" fontWeight="bold">Rp</Typography>
+              </InputAdornment>
+            ),
           }}
           inputProps={{
             style: { fontSize: "60px", fontWeight: "bold", textAlign: "right" },
@@ -125,13 +127,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
         {/* <ButtonKalkulator buttonVariant="contained" onClick={() => uangPas()}>
           Uang Pas
         </ButtonKalkulator> */}
-        <Button
-          variant="outlined"
-          onClick={() => onUangPasClick()}
-          sx={{
-            backgroundColor: "#F6FBF8",
-          }}
-        >
+        <Button variant="outlined" onClick={() => onUangPasClick()}>
           <Typography variant="h6" fontSize={16}>
             Uang Pas
           </Typography>
