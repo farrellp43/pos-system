@@ -51,7 +51,7 @@ const ModalDiskon = (props: IModalDiskonProps) => {
               size="small"
               type="number"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                aturDiskon(Number(event.target.value));
+                aturDiskon(Number(event.target.value), "nominal"); //hanya placeholder, tolong hiraukan
               }}
               InputProps={{
                 startAdornment: (
