@@ -119,6 +119,7 @@ const ListBarang = (props: IListBarangProps) => {
               id={rows.id}
               namaBarang={rows.namaBarang}
               harga={rows.harga}
+              url={rows.url}
             />
           ))
         ) : (
