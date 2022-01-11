@@ -1,8 +1,4 @@
-import {
-  Dialog,
-  Divider,
-  Grid,
-} from "@mui/material";
+import { Dialog, Divider, Grid } from "@mui/material";
 import React from "react";
 import { useTransaksi } from "../../context/transaksiContext";
 import InfoTagihan from "../InfoTagihan/InfoTagihan";
@@ -11,10 +7,7 @@ import Kalkulator from "../Kalkulator/Kalkulator";
 interface IModalBayarProps {}
 
 const ModalBayar = (props: IModalBayarProps) => {
-  const {
-    isOpenModalBayar,
-    closeModalBayar,
-  } = useTransaksi();
+  const { isOpenModalBayar, closeModalBayar } = useTransaksi();
 
   return (
     <Dialog
@@ -26,6 +19,7 @@ const ModalBayar = (props: IModalBayarProps) => {
         sx: {
           minHeight: "90vh",
           maxHeight: "90vh",
+          borderRadius: "30px",
         },
       }}
     >
