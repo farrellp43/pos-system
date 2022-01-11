@@ -25,7 +25,7 @@ interface State {
   closeModalBayar: () => void;
   isOpenModalBayar: boolean;
   hitungGrandTotal: () => void;
-  aturDiskon: (digit: number) => void;
+  aturDiskon: (digit: number, toggleDiskon: "nominal" | "persentase") => void;
   diskon: number;
   grandTotal: number;
   addToCart: (data: ICart) => void;
@@ -40,6 +40,7 @@ interface ICart {
   id: number;
   namaBarang: string;
   harga: number;
+  url: string;
   qty: number;
 }
 
@@ -104,23 +105,37 @@ const TransaksiProvider = ({ children }: ITransaksiContext) => {
     // }
   }, [bayar, diskon, grandTotal, totalHarga]);
 
-  const aturDiskon = useCallback((digit: number) => {
-    setDiskon(digit);
-  }, []);
+  const aturDiskon = useCallback(
+    (digit: number, toggleDiskon: "nominal" | "persentase") => {
+      if (toggleDiskon === "nominal") {
+        setDiskon(digit);
+      } else if (toggleDiskon === "persentase") {
+        const potongan = digit / 100;
+        const totalDiskon = totalHarga - totalHarga * potongan;
+        setDiskon(totalHarga - totalDiskon);
+      }
+      console.log(digit);
+      console.log(toggleDiskon);
+    },
+    [totalHarga]
+  );
 
   const hitungGrandTotal = useCallback(() => {
     // if (diskon === 0) {
     //   setGrandTotal(0);
     // } else {
-    const potongan = diskon / 100;
-    const grand = totalHarga - totalHarga * potongan;
-    setGrandTotal(grand);
+    // const potongan = diskon / 100;
+    // const grand = totalHarga - totalHarga * potongan;
+    setGrandTotal(totalHarga - diskon);
     // }
   }, [diskon, totalHarga]);
 
   const handleReset = useCallback(() => {
     setCart([]);
     setTotalHarga(0);
+    setBayar(0);
+    setKembalian(0);
+    setDiskon(0);
   }, []);
 
   const uangPas = useCallback(() => {
