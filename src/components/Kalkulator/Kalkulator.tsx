@@ -85,13 +85,12 @@ const Kalkulator = (props: IKalkulatorProps) => {
     <Box
       display="grid"
       gridTemplateRows="1fr 1fr 4fr"
-      paddingX={2}
       sx={{
         height: "90vh",
         rowGap: 1,
       }}
     >
-      <Box display="flex" marginTop={2}>
+      <Box display="flex" marginTop={4} marginLeft={4} marginRight={3}>
         <NumberFormat
           value={display}
           customInput={TextField}
@@ -101,15 +100,18 @@ const Kalkulator = (props: IKalkulatorProps) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             if (event.target.value === "") {
               setDisplay("0");
+              hitungBayar(0);
               return;
             }
-            hitungBayar(Number(event.target.value));
+            hitungBayar(Number(event.target.value.replace(".", "")));
             setDisplay(event.target.value);
           }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Typography fontSize="60px" fontWeight="bold">Rp</Typography>
+                <Typography fontSize="60px" fontWeight="bold">
+                  Rp
+                </Typography>
               </InputAdornment>
             ),
           }}
@@ -122,7 +124,9 @@ const Kalkulator = (props: IKalkulatorProps) => {
         display="grid"
         gridTemplateColumns="1fr 1fr 1fr 1fr"
         gap={2}
-        paddingY={2}
+        marginTop={2}
+        marginLeft={4}
+        marginRight={3}
       >
         {/* <ButtonKalkulator buttonVariant="contained" onClick={() => uangPas()}>
           Uang Pas
@@ -179,8 +183,11 @@ const Kalkulator = (props: IKalkulatorProps) => {
       <Box
         display="grid"
         gridTemplateColumns="1fr 1fr 1fr 1fr"
-        marginBottom={2}
         gap={2}
+        marginTop={2}
+        marginLeft={4}
+        marginRight={3}
+        marginBottom={4}
       >
         <ButtonNumKalkulator
           buttonVariant="text"
