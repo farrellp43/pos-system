@@ -7,6 +7,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Mie Ayam Spesial Pak Geger",
     jumlahStok: 35,
     SKU: "JSnow@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Cersei",
     jumlahStok: 42,
     SKU: "CLannister@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 3,
@@ -21,6 +23,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Jaime",
     jumlahStok: 45,
     SKU: "JLannister@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 4,
@@ -28,6 +31,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Arya",
     jumlahStok: 16,
     SKU: "AStark@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 5,
@@ -35,6 +39,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Daenerys",
     jumlahStok: 999,
     SKU: "DTargaryen@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 6,
@@ -42,6 +47,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Fire",
     jumlahStok: 150,
     SKU: "Melisandre@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 7,
@@ -49,6 +55,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Ferrara",
     jumlahStok: 44,
     SKU: "FClifford@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 8,
@@ -56,6 +63,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Rossini",
     jumlahStok: 36,
     SKU: "RFrances@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
     id: 9,
@@ -63,6 +71,7 @@ export const originalRows: IStokBarang[] = [
     namaBarang: "Harvey",
     jumlahStok: 65,
     SKU: "HRoxie@example.com",
+    url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
 ];
 

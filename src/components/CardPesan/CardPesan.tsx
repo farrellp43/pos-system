@@ -5,6 +5,7 @@ import {
   Stack,
   Typography,
   TextField,
+  Avatar,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,6 +17,7 @@ interface ICardPesanProps {
   id: number;
   namaBarang: string;
   harga: number;
+  url: string;
   qty: number;
 }
 
@@ -23,10 +25,11 @@ interface ICart {
   id: number;
   namaBarang: string;
   harga: number;
+  url: string;
   qty: number;
 }
 
-const CardPesan = ({ id, namaBarang, harga, qty }: ICardPesanProps) => {
+const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
   const { handleUpdate, handleRemove, totalHarga } = useTransaksi();
   const [count, setCount] = useState(1);
 
@@ -44,16 +47,16 @@ const CardPesan = ({ id, namaBarang, harga, qty }: ICardPesanProps) => {
 
   const incNum = () => {
     setCount(count + 1);
-    addToCart({ id, namaBarang, harga, qty: count + 1 });
+    addToCart({ id, namaBarang, harga, url, qty: count + 1 });
   };
 
   const decNum = () => {
     if (count > 0) {
       setCount(count - 1);
-      addToCart({ id, namaBarang, harga, qty: count - 1 });
+      addToCart({ id, namaBarang, harga, url, qty: count - 1 });
     } else {
       setCount(0);
-      addToCart({ id, namaBarang, harga, qty: 0 });
+      addToCart({ id, namaBarang, harga, url, qty: 0 });
     }
   };
 
@@ -67,17 +70,27 @@ const CardPesan = ({ id, namaBarang, harga, qty }: ICardPesanProps) => {
     >
       <Box>
         <Stack direction="row" width="100%" spacing={2}>
-          <Box width="50%">
-            <Typography variant="h6" component="div">
-              {namaBarang}
-            </Typography>
-            <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
+          <Box width="60%">
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Avatar
+                sx={{ bgcolor: "#6AB893", width: 65, height: 70 }}
+                variant="rounded"
+                alt={namaBarang}
+                src={url}
+              />
+              <Box>
+                <Typography variant="h6" component="div">
+                  {namaBarang}
+                </Typography>
+                <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
+              </Box>
+            </Stack>
           </Box>
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            width="50%"
+            width="40%"
           >
             <Stack direction="row" width="100%" spacing={2} alignItems="center">
               <Button onClick={decNum} variant="outlined">
@@ -108,6 +121,7 @@ const CardPesan = ({ id, namaBarang, harga, qty }: ICardPesanProps) => {
                     id,
                     namaBarang,
                     harga,
+                    url,
                     qty: Number(event.target.value),
                   });
                 }}

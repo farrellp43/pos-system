@@ -4,6 +4,7 @@ export interface IStokBarang {
   harga: number;
   jumlahStok: number;
   SKU: string;
+  url: string;
 }
 
 export interface IInvoice {
