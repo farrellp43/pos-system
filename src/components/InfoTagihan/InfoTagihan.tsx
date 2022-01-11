@@ -1,12 +1,36 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useTransaksi } from "../../context/transaksiContext";
 import toRibuan from "../../utils/toRibuan";
 
 interface IInfoTagihanProps {}
 
+type ToggleDiskon = "nominal" | "persentase";
+
 const InfoTagihan = (props: IInfoTagihanProps) => {
-  const { totalHarga, diskon, grandTotal, bayar, kembalian, closeModalBayar } = useTransaksi();
+  const {
+    totalHarga,
+    diskon,
+    aturDiskon,
+    grandTotal,
+    bayar,
+    kembalian,
+    closeModalBayar,
+  } = useTransaksi();
+  const [toggleDiskon, setToggleDiskon] = useState<ToggleDiskon>("nominal");
+  const [display, setDisplay] = useState(0);
+
+  const pilihNominal = () => {
+    setToggleDiskon("nominal");
+    setDisplay(0);
+    aturDiskon(0, toggleDiskon);
+  };
+
+  const pilihPersentase = () => {
+    setToggleDiskon("persentase");
+    setDisplay(0);
+    aturDiskon(0, toggleDiskon);
+  };
 
   return (
     <Box
@@ -16,23 +40,49 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
         height: "90vh",
       }}
     >
-      <Box margin={2} paddingTop={2}>
+      <Box marginLeft={3} marginRight={4} marginTop={4}>
         <Typography variant="h5" fontWeight="bold" marginBottom={1}>
           Set Diskon Harga
         </Typography>
         <Grid container alignItems="center">
           <Grid item lg={6}>
             <Stack direction="row" spacing={3}>
-              <Button variant="outlined">Nominal</Button>
-              <Button variant="outlined">Persentase</Button>
+              <Button
+                variant={toggleDiskon === "nominal" ? "contained" : "outlined"}
+                onClick={() => pilihNominal()}
+              >
+                <Typography>Nominal</Typography>
+              </Button>
+              <Button
+                variant={
+                  toggleDiskon === "persentase" ? "contained" : "outlined"
+                }
+                onClick={() => pilihPersentase()}
+              >
+                <Typography>Presentase</Typography>
+              </Button>
             </Stack>
           </Grid>
           <Grid item lg={6}>
-            <TextField fullWidth size="small" />
+            <TextField
+              fullWidth
+              size="small"
+              value={display}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setDisplay(Number(event.target.value));
+                aturDiskon(Number(event.target.value), toggleDiskon);
+              }}
+              inputProps={{
+                style: {
+                  fontWeight: "bold",
+                  textAlign: "right",
+                },
+              }}
+            />
           </Grid>
         </Grid>
       </Box>
-      <Box marginX={2}>
+      <Box marginLeft={3} marginRight={4} paddingTop={4}>
         <Typography variant="h5" fontWeight="bold" marginBottom={1}>
           Rincian Transaksi
         </Typography>
@@ -42,9 +92,7 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Potongan Diskon</Typography>
-          <Typography variant="h6">
-            {toRibuan(totalHarga - (totalHarga - totalHarga * (diskon / 100)))}
-          </Typography>
+          <Typography variant="h6">{toRibuan(diskon)}</Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Total Tagihan</Typography>
@@ -59,7 +107,7 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
           <Typography variant="h6">{toRibuan(kembalian)}</Typography>
         </Box>
       </Box>
-      <Box margin={2}>
+      <Box marginLeft={3} marginRight={4} marginBottom={4}>
         <Stack direction="row" spacing={2} alignItems="center">
           <Button
             variant="contained"
@@ -68,10 +116,15 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
             size="large"
             fullWidth
           >
-            Bayar
+            <Typography>Bayar</Typography>
           </Button>
-          <Button variant="outlined" onClick={() => closeModalBayar()} size="large" fullWidth>
-            Kembali
+          <Button
+            variant="outlined"
+            onClick={() => closeModalBayar()}
+            size="large"
+            fullWidth
+          >
+            <Typography>Kembali</Typography>
           </Button>
         </Stack>
       </Box>
