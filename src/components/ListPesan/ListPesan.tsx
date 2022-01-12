@@ -19,7 +19,9 @@ const ListPesan = (props: IListPesanProps) => {
       }}
     >
       <Box margin={2}>
-        <Typography variant="h5">Barang yang Dipesan</Typography>
+        <Typography variant="h5" fontWeight="bold">
+          Barang yang Dipesan
+        </Typography>
       </Box>
       <Box
         marginX={2}
@@ -45,8 +47,12 @@ const ListPesan = (props: IListPesanProps) => {
       <Divider />
       <Box padding={2}>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="h6">Subtotal Harga</Typography>
-          <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+          <Typography variant="subtitle1" color="#76747C" fontWeight={600}>
+            Subtotal Harga
+          </Typography>
+          <Typography variant="h6" fontWeight="bold">
+            {toRibuan(totalHarga)}
+          </Typography>
         </Box>
         {/* {diskon ? (
           <React.Fragment>
@@ -94,16 +100,16 @@ const ListPesan = (props: IListPesanProps) => {
             size="large"
             fullWidth
           >
-            Bayar
+            <Typography fontWeight="bold">Bayar</Typography>
           </Button>
           <Button
-            variant="text"
+            variant="outlined"
             onClick={() => handleReset()}
             startIcon={<RestartAltIcon />}
             size="large"
             fullWidth
           >
-            Reset
+            <Typography fontWeight="bold">Reset</Typography>
           </Button>
         </Stack>
       </Box>

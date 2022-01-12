@@ -59,7 +59,7 @@ const ListBarang = (props: IListBarangProps) => {
       }}
     >
       <Box alignItems="center" margin={2}>
-        <Stack direction="row" width="100%" spacing={2}>
+        <Stack direction="row" width="100%" spacing={2} alignItems="center">
           <Box width="40%">
             <TextField
               placeholder="Cari barang..."
@@ -101,7 +101,7 @@ const ListBarang = (props: IListBarangProps) => {
                 lineHeight: 2,
               }}
             >
-              Tambah
+              <Typography fontWeight="bold">Tambah</Typography>
             </Button>
           </Box>
         </Stack>

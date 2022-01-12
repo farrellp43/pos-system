@@ -6,6 +6,7 @@ import {
   Typography,
   TextField,
   Avatar,
+  Grid,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -70,7 +71,7 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
     >
       <Box>
         <Stack direction="row" width="100%" spacing={2}>
-          <Box width="60%">
+          <Box width="70%">
             <Stack direction="row" spacing={1} alignItems="center">
               <Avatar
                 sx={{ bgcolor: "#6AB893", width: 65, height: 70 }}
@@ -78,11 +79,40 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
                 alt={namaBarang}
                 src={url}
               />
-              <Box>
-                <Typography variant="h6" component="div">
+              <Box width="100%">
+                <Typography variant="h6" fontWeight="bold">
                   {namaBarang}
                 </Typography>
-                <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
+                {/* <Box display="flex" justifyContent="space-between"> */}
+                <Grid container spacing={2}>
+                  <Grid item md={4}>
+                    <Typography
+                      variant="subtitle2"
+                      color="#76747C"
+                      fontWeight="bold"
+                    >
+                      {toRibuan(harga)}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={4}>
+                    <Typography
+                      variant="subtitle2"
+                      color="#76747C"
+                      fontWeight="bold"
+                    >
+                      x{count}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={4}></Grid>
+                </Grid>
+                {/* </Box> */}
+                <Typography
+                  variant="subtitle1"
+                  color="primary"
+                  fontWeight="bold"
+                >
+                  {toRibuan(harga * count)}
+                </Typography>
               </Box>
             </Stack>
           </Box>
@@ -90,11 +120,15 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            width="40%"
+            width="30%"
           >
             <Stack direction="row" width="100%" spacing={2} alignItems="center">
-              <Button onClick={decNum} variant="outlined">
-                <RemoveIcon color="primary" sx={{ fontSize: 30 }} />
+              <Button
+                onClick={decNum}
+                variant="outlined"
+                sx={{ minWidth: 30, minHeight: 30 }}
+              >
+                <RemoveIcon color="primary" />
               </Button>
               {/* <NumberFormat
                 value={count}
@@ -126,17 +160,19 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
                   });
                 }}
                 inputProps={{
-                  style: { textAlign: "center", backgroundColor: "white" },
+                  style: {
+                    textAlign: "center",
+                    backgroundColor: "white",
+                    fontWeight: "bold",
+                  },
                 }}
               />
               <Button
                 onClick={incNum}
                 variant="contained"
-                sx={{
-                  color: count > 0 ? "white" : "primary",
-                }}
+                sx={{ minWidth: 30, minHeight: 30 }}
               >
-                <AddIcon color="inherit" sx={{ fontSize: 30 }} />
+                <AddIcon color="inherit" />
               </Button>
             </Stack>
           </Box>

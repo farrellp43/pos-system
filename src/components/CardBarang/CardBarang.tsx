@@ -46,7 +46,7 @@ const CardBarang = ({ id, namaBarang, harga, url }: ICardBarangProps) => {
             <Typography variant="h6" fontWeight="bold">
               {namaBarang}
             </Typography>
-            <Typography variant="subtitle1">{toRibuan(harga)}</Typography>
+            <Typography variant="subtitle1" color="#76747C" fontWeight="bold">{toRibuan(harga)}</Typography>
           </Box>
         </Stack>
         {/* </Box> */}
