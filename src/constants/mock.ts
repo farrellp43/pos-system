@@ -5,6 +5,11 @@ export const originalRows: IStokBarang[] = [
     id: 1,
     harga: 10000,
     namaBarang: "Mie Ayam Spesial Pak Geger",
+    infoBarang: {
+      nama: "Mie Ayam Spesial Pak Geger",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Makanan",
     jumlahStok: 35,
     SKU: "JSnow@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -12,7 +17,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 2,
     harga: 10000,
-    namaBarang: "Cersei",
+    namaBarang: "Nasi Goreng Babat",
+    infoBarang: {
+      nama: "Nasi Goreng Babat",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Makanan",
     jumlahStok: 42,
     SKU: "CLannister@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -20,7 +30,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 3,
     harga: 10000,
-    namaBarang: "Jaime",
+    namaBarang: "Ayam Geprek",
+    infoBarang: {
+      nama: "Ayam Geprek",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Makanan",
     jumlahStok: 45,
     SKU: "JLannister@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -28,7 +43,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 4,
     harga: 10000,
-    namaBarang: "Arya",
+    namaBarang: "Bebek Rempah",
+    infoBarang: {
+      nama: "Bebek Rempah",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Makanan",
     jumlahStok: 16,
     SKU: "AStark@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -36,7 +56,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 5,
     harga: 10000,
-    namaBarang: "Daenerys",
+    namaBarang: "Sate Padang",
+    infoBarang: {
+      nama: "Sate Padang",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Makanan",
     jumlahStok: 999,
     SKU: "DTargaryen@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -44,7 +69,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 6,
     harga: 10000,
-    namaBarang: "Fire",
+    namaBarang: "Es Teh",
+    infoBarang: {
+      nama: "Es Teh",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Minuman",
     jumlahStok: 150,
     SKU: "Melisandre@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -52,7 +82,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 7,
     harga: 10000,
-    namaBarang: "Ferrara",
+    namaBarang: "Es Jeruk",
+    infoBarang: {
+      nama: "Es Jeruk",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Minuman",
     jumlahStok: 44,
     SKU: "FClifford@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -60,7 +95,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 8,
     harga: 10000,
-    namaBarang: "Rossini",
+    namaBarang: "Susu Putih",
+    infoBarang: {
+      nama: "Susu Putih",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Minuman",
     jumlahStok: 36,
     SKU: "RFrances@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
@@ -68,7 +108,12 @@ export const originalRows: IStokBarang[] = [
   {
     id: 9,
     harga: 10000,
-    namaBarang: "Harvey",
+    namaBarang: "Jahe Panas",
+    infoBarang: {
+      nama: "Jahe Panas",
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png"
+    },
+    kategori: "Minuman",
     jumlahStok: 65,
     SKU: "HRoxie@example.com",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",

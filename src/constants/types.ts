@@ -1,6 +1,11 @@
 export interface IStokBarang {
   id: number;
   namaBarang: string;
+  infoBarang: {
+    nama: string;
+    url: string;
+  };
+  kategori: string;
   harga: number;
   jumlahStok: number;
   SKU: string;
