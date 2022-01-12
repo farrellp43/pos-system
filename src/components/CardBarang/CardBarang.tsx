@@ -1,7 +1,7 @@
 import { Avatar, Card, Button, Box, Typography, Stack } from "@mui/material";
 import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import toRibuan from "../../utils/toRibuan";
+import toRupiah from "../../utils/toRupiah";
 import { useTransaksi } from "../../context/transaksiContext";
 
 interface ICardBarangProps {
@@ -46,7 +46,7 @@ const CardBarang = ({ id, namaBarang, harga, url }: ICardBarangProps) => {
             <Typography variant="h6" fontWeight="bold">
               {namaBarang}
             </Typography>
-            <Typography variant="subtitle1" color="#76747C" fontWeight="bold">{toRibuan(harga)}</Typography>
+            <Typography variant="subtitle1" color="#76747C" fontWeight="bold">{toRupiah(harga)}</Typography>
           </Box>
         </Stack>
         {/* </Box> */}

@@ -110,7 +110,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Typography fontSize="60px" fontWeight="bold">
-                  Rp
+                  Rp.
                 </Typography>
               </InputAdornment>
             ),

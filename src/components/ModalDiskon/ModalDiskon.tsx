@@ -12,7 +12,7 @@ import {
 import React from "react";
 import PercentIcon from "@mui/icons-material/Percent";
 import { useTransaksi } from "../../context/transaksiContext";
-import toRibuan from "../../utils/toRibuan";
+import toRupiah from "../../utils/toRupiah";
 
 interface IModalDiskonProps {}
 
@@ -37,7 +37,7 @@ const ModalDiskon = (props: IModalDiskonProps) => {
             alignItems="center"
           >
             <Typography variant="h6">Harga Awal</Typography>
-            <Typography variant="h6">{toRibuan(totalHarga)}</Typography>
+            <Typography variant="h6">{toRupiah(totalHarga)}</Typography>
           </Box>
           <Box
             display="flex"
@@ -71,7 +71,7 @@ const ModalDiskon = (props: IModalDiskonProps) => {
             alignItems="center"
           >
             <Typography variant="h6">Harga Setelah Diskon</Typography>
-            <Typography variant="h6">{toRibuan(grandTotal)}</Typography>
+            <Typography variant="h6">{toRupiah(grandTotal)}</Typography>
           </Box>
         </Box>
       </DialogContent>

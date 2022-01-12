@@ -2,7 +2,7 @@ import { Box, Button, Stack, Divider, Typography } from "@mui/material";
 import React from "react";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useTransaksi } from "../../context/transaksiContext";
-import toRibuan from "../../utils/toRibuan";
+import toRupiah from "../../utils/toRupiah";
 import CardPesan from "../CardPesan/CardPesan";
 
 interface IListPesanProps {}
@@ -51,7 +51,7 @@ const ListPesan = (props: IListPesanProps) => {
             Subtotal Harga
           </Typography>
           <Typography variant="h6" fontWeight="bold">
-            {toRibuan(totalHarga)}
+            {toRupiah(totalHarga)}
           </Typography>
         </Box>
         {/* {diskon ? (
@@ -60,14 +60,14 @@ const ListPesan = (props: IListPesanProps) => {
               <Typography variant="h6">Diskon ({diskon}%)</Typography>
               <Typography variant="h6">
                 -{" "}
-                {toRibuan(
+                {toRupiah(
                   totalHarga - (totalHarga - totalHarga * (diskon / 100))
                 )}
               </Typography>
             </Box>
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h6">Total Tagihan</Typography>
-              <Typography variant="h6">{toRibuan(grandTotal)}</Typography>
+              <Typography variant="h6">{toRupiah(grandTotal)}</Typography>
             </Box>
           </React.Fragment>
         ) : (
@@ -75,11 +75,11 @@ const ListPesan = (props: IListPesanProps) => {
         )}
         <Box display="flex" justifyContent="space-between">
           <Typography variant="h6">Uang Yang Dibayar</Typography>
-          <Typography variant="h6">{toRibuan(bayar)}</Typography>
+          <Typography variant="h6">{toRupiah(bayar)}</Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="h6">Kembalian</Typography>
-          <Typography variant="h6">{toRibuan(kembalian)}</Typography>
+          <Typography variant="h6">{toRupiah(kembalian)}</Typography>
         </Box> */}
       </Box>
       <Box marginX={2} marginBottom={2}>

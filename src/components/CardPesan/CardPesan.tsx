@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import toRibuan from "../../utils/toRibuan";
+import toRupiah from "../../utils/toRupiah";
 import { useTransaksi } from "../../context/transaksiContext";
 
 interface ICardPesanProps {
@@ -91,7 +91,7 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
                       color="#76747C"
                       fontWeight="bold"
                     >
-                      {toRibuan(harga)}
+                      {toRupiah(harga)}
                     </Typography>
                   </Grid>
                   <Grid item md={4}>
@@ -111,7 +111,7 @@ const CardPesan = ({ id, namaBarang, harga, url, qty }: ICardPesanProps) => {
                   color="primary"
                   fontWeight="bold"
                 >
-                  {toRibuan(harga * count)}
+                  {toRupiah(harga * count)}
                 </Typography>
               </Box>
             </Stack>
