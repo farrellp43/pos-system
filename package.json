@@ -8,6 +8,7 @@
     "@hookform/resolvers": "^2.8.5",
     "@mui/icons-material": "^5.2.4",
     "@mui/material": "^5.2.4",
+    "@mui/styles": "^5.2.3",
     "@mui/x-data-grid": "^5.2.0",
     "@react-pdf/renderer": "^2.0.21",
     "@testing-library/jest-dom": "^5.16.1",
