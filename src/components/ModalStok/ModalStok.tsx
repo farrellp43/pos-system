@@ -22,6 +22,7 @@ interface IValuesStok {
   namaBarang: string;
   harga: number;
   jumlahStok: number;
+  kategori: string;
   SKU: string;
 }
 
@@ -30,6 +31,7 @@ const schema = yup
     namaBarang: yup.string().required("Kolom wajib diisi"),
     harga: yup.number().integer().required("Kolom wajib diisi"),
     jumlahStok: yup.number().integer().required("Kolom wajib diisi"),
+    kategori: yup.string().required("Kolom wajib diisi"),
     SKU: yup.string().required("Kolom wajib diisi"),
   })
   .required();
@@ -48,6 +50,7 @@ const ModalStok = () => {
       namaBarang: "",
       harga: 0,
       jumlahStok: 0,
+      kategori: "",
       SKU: "",
     }),
     []
@@ -84,7 +87,9 @@ const ModalStok = () => {
       open={isOpenModal}
       onClose={closeModal}
     >
-      <DialogTitle>{dataStok ? "Ubah Barang" : "Tambah Barang"}</DialogTitle>
+      <DialogTitle sx={{ fontWeight: "bold" }}>
+        {dataStok ? "Ubah Barang" : "Tambah Barang"}
+      </DialogTitle>
       <DialogContent dividers>
         <Controller
           name="namaBarang"
@@ -103,6 +108,24 @@ const ModalStok = () => {
             />
           )}
           rules={{ required: "Nama barang required" }}
+        />
+        <Controller
+          name="kategori"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              margin="dense"
+              id="kategori"
+              label="Kategori"
+              fullWidth
+              variant="outlined"
+              error={Boolean(errors.kategori)}
+              helperText={errors.kategori ? errors.kategori.message : " "}
+              {...field}
+            />
+          )}
+          rules={{ required: "Kategori required" }}
         />
         <Controller
           name="harga"
