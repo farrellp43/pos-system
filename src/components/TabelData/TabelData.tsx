@@ -17,14 +17,6 @@ function escapeRegExp(value: string): string {
 
 interface ITabelDataProps {}
 
-interface IStokBarang {
-  id: number;
-  namaBarang: string;
-  harga: number;
-  jumlahStok: number;
-  SKU: string;
-}
-
 interface QuickSearchToolbarProps {
   clearSearch: () => void;
   onChange: () => void;

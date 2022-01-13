@@ -8,7 +8,7 @@ interface IStokBarangProps {}
 
 const StokBarang = (props: IStokBarangProps) => {
   return (
-    <Box margin={2}>
+    <Box marginX={3}>
       {/* <TabelData /> */}
       <TabelBarang />
       <ModalStok />
