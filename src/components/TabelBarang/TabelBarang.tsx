@@ -90,8 +90,8 @@ const TabelBarang = (props: ITabelBarangProps) => {
           </Stack>
         </Box>
         <Box marginY={5}>
-          <Stack direction="row" width="100%" spacing={2} alignItems="center">
-            <Box width="50%">
+          <Stack direction="row" width="100%" spacing={3} alignItems="center">
+            <Box width="40%">
               <TextField
                 placeholder="Cari barang..."
                 fullWidth
@@ -113,7 +113,7 @@ const TabelBarang = (props: ITabelBarangProps) => {
                 </Select>
               </FormControl>
             </Box>
-            <Box width="20%">
+            <Box width="30%">
               <Button
                 variant="contained"
                 onClick={() => openModal()}
