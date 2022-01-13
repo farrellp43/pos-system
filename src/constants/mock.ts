@@ -11,7 +11,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Makanan",
     jumlahStok: 35,
-    SKU: "JSnow@example.com",
+    SKU: "MIE-IDR-MAK-STO",
     url: "https://upload.wikimedia.org/wikipedia/commons/8/82/Mi_ayam_jamur.JPG",
   },
   {
@@ -24,7 +24,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Makanan",
     jumlahStok: 42,
-    SKU: "CLannister@example.com",
+    SKU: "NAS-IDR-MAK-STO",
     url: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Nasi_goreng_indonesia.jpg",
   },
   {
@@ -37,7 +37,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Makanan",
     jumlahStok: 45,
-    SKU: "JLannister@example.com",
+    SKU: "AYA-IDR-MAK-STO",
     url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png",
   },
   {
@@ -50,7 +50,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Makanan",
     jumlahStok: 16,
-    SKU: "AStark@example.com",
+    SKU: "BEB-IDR-MAK-STO",
     url: "https://1.bp.blogspot.com/-cvGJ04f3q7o/VTzYUXspisI/AAAAAAAAFhM/ihXblcDKxSE/s1600/Bebek-Goreng-Kremes-dan-Nasi.jpg",
   },
   {
@@ -63,7 +63,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Makanan",
     jumlahStok: 999,
-    SKU: "DTargaryen@example.com",
+    SKU: "SAT-IDR-MAK-STO",
     url: "https://upload.wikimedia.org/wikipedia/commons/4/41/Sate_Padang2.JPG",
   },
   {
@@ -76,7 +76,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Minuman",
     jumlahStok: 150,
-    SKU: "Melisandre@example.com",
+    SKU: "TEH-IDR-MIN-STO",
     url: "https://akcdn.detik.net.id/community/media/visual/2020/05/14/0af32d8b-36b7-4555-8e79-4fd54c98f795.jpeg?w=700&q=90",
   },
   {
@@ -89,7 +89,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Minuman",
     jumlahStok: 44,
-    SKU: "FClifford@example.com",
+    SKU: "JER-IDR-MIN-STO",
     url: "https://cdn.yummy.co.id/content-images/images/20201013/WqfCTib25afAXzGCyok7dmAmTKGeGpkM-31363032353730383236d41d8cd98f00b204e9800998ecf8427e_800x800.jpg",
   },
   {
@@ -102,7 +102,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Minuman",
     jumlahStok: 36,
-    SKU: "RFrances@example.com",
+    SKU: "SUS-IDR-MIN-STO",
     url: "https://statics.indozone.id/content/2020/09/27/L9sabJz/es-susu-yakult-nikmat-diminum-bersama-buah-hati-tercinta88_700.jpg",
   },
   {
@@ -115,7 +115,7 @@ export const originalRows: IStokBarang[] = [
     },
     kategori: "Minuman",
     jumlahStok: 65,
-    SKU: "HRoxie@example.com",
+    SKU: "JAH-IDR-MIN-STO",
     url: "https://akcdn.detik.net.id/community/media/visual/2019/09/19/abe4b52d-f2b4-4d32-ab42-f996ae04d93c.jpeg?w=700&q=90",
   },
 ];
