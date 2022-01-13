@@ -5,13 +5,7 @@ import {
   Box,
   Button,
   FormControl,
-  IconButton,
   InputLabel,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   MenuItem,
   Select,
   Stack,
@@ -30,6 +24,7 @@ import { originalRows } from "../../constants/mock";
 import toRupiah from "../../utils/toRupiah";
 import LogoTokped from "../LogoTokped/LogoTokped";
 import ActionList from "../ActionList/ActionList";
+import { useStokModal } from "../../context/stokModalContext";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -60,238 +55,220 @@ interface QuickSearchToolbarProps {
   value: string;
 }
 
-const QuickSearchToolbar = ({ onChange, value }: QuickSearchToolbarProps) => {
-  return (
-    <Box>
-      <Box display="flex" justifyContent="space-between" marginTop={3}>
-        <Box>
-          <Typography variant="h4" fontWeight="bold">
-            Daftar Produk
-          </Typography>
-        </Box>
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            onClick={() => {}}
-            startIcon={<CloudDownloadIcon />}
-            size="medium"
-          >
-            <Typography fontWeight="bold">Download Katalog</Typography>
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => {}}
-            startIcon={<LogoTokped />}
-            size="medium"
-          >
-            <Typography fontWeight="bold">Import</Typography>
-          </Button>
-        </Stack>
-      </Box>
-      <Box marginY={5}>
-        <Stack direction="row" width="100%" spacing={2} alignItems="center">
-          <Box width="50%">
-            <TextField
-              placeholder="Cari barang..."
-              fullWidth
-              size="small"
-              value={value}
-              onChange={onChange}
-              InputProps={{
-                startAdornment: <SearchIcon />,
-              }}
-              variant="outlined"
-            />
+const TabelBarang = (props: ITabelBarangProps) => {
+  const theme = useTheme();
+  const { openModal } = useStokModal();
+  const [searchText, setSearchText] = useState("");
+  const [rows, setRows] = useState<any[]>(originalRows);
+
+  const QuickSearchToolbar = ({ onChange, value }: QuickSearchToolbarProps) => {
+    return (
+      <Box>
+        <Box display="flex" justifyContent="space-between" marginTop={3}>
+          <Box>
+            <Typography variant="h4" fontWeight="bold">
+              Daftar Produk
+            </Typography>
           </Box>
-          <Box width="30%">
-            <FormControl size="small" fullWidth>
-              <InputLabel>Pilih kategori</InputLabel>
-              <Select label="Pilih Kategori" onChange={() => {}}>
-                <MenuItem value="Makanan">Makanan</MenuItem>
-                <MenuItem value="Minuman">Minuman</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box width="20%">
+          <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
               onClick={() => {}}
-              startIcon={<AddIcon />}
-              size="large"
-              fullWidth
+              startIcon={<CloudDownloadIcon />}
+              size="medium"
             >
-              <Typography fontWeight="bold">Tambah Barang</Typography>
+              <Typography fontWeight="bold">Download Katalog</Typography>
             </Button>
-          </Box>
-        </Stack>
-      </Box>
-    </Box>
-  );
-};
-
-const columns: GridColDef[] = [
-  {
-    field: "id",
-    headerName: "No",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    align: "center",
-    flex: 0.5,
-    renderCell: (params) => {
-      return (
-        <Box marginY={1}>
-          <Typography variant="subtitle2" fontWeight="bold">
-            {params.value}
-          </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => {}}
+              startIcon={<LogoTokped />}
+              size="medium"
+            >
+              <Typography fontWeight="bold">Import</Typography>
+            </Button>
+          </Stack>
         </Box>
-      );
-    },
-  },
-  {
-    field: "infoBarang",
-    headerName: "Info Barang",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    flex: 3,
-    renderCell: (params) => {
-      return (
-        <Stack direction="row" spacing={1} marginY={3}>
-          <Avatar
-            sx={{ bgcolor: "#6AB893", width: 50, height: 55 }}
-            variant="rounded"
-            alt={params.value.nama}
-            src={params.value.url}
-          />
-          <Box>
+        <Box marginY={5}>
+          <Stack direction="row" width="100%" spacing={2} alignItems="center">
+            <Box width="50%">
+              <TextField
+                placeholder="Cari barang..."
+                fullWidth
+                size="small"
+                value={value}
+                onChange={onChange}
+                InputProps={{
+                  startAdornment: <SearchIcon />,
+                }}
+                variant="outlined"
+              />
+            </Box>
+            <Box width="30%">
+              <FormControl size="small" fullWidth>
+                <InputLabel>Pilih kategori</InputLabel>
+                <Select label="Pilih Kategori" onChange={() => {}}>
+                  <MenuItem value="Makanan">Makanan</MenuItem>
+                  <MenuItem value="Minuman">Minuman</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box width="20%">
+              <Button
+                variant="contained"
+                onClick={() => openModal()}
+                startIcon={<AddIcon />}
+                size="large"
+                fullWidth
+              >
+                <Typography fontWeight="bold">Tambah Barang</Typography>
+              </Button>
+            </Box>
+          </Stack>
+        </Box>
+      </Box>
+    );
+  };
+
+  const columns: GridColDef[] = [
+    {
+      field: "id",
+      headerName: "No",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      align: "center",
+      flex: 0.5,
+      renderCell: (params) => {
+        return (
+          <Box marginY={1}>
             <Typography variant="subtitle2" fontWeight="bold">
-              {params.value.nama}
+              {params.value}
             </Typography>
           </Box>
-        </Stack>
-      );
+        );
+      },
     },
-  },
-  {
-    field: "kategori",
-    headerName: "Kategori",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    align: "center",
-    flex: 2,
-    renderCell: (params) => {
-      return (
-        <Box marginY={1}>
-          <Typography variant="subtitle2">{params.value}</Typography>
-        </Box>
-      );
+    {
+      field: "infoBarang",
+      headerName: "Info Barang",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      flex: 3,
+      renderCell: (params) => {
+        return (
+          <Stack direction="row" spacing={1} marginY={3}>
+            <Avatar
+              sx={{ bgcolor: "#6AB893", width: 50, height: 55 }}
+              variant="rounded"
+              alt={params.value.nama}
+              src={params.value.url}
+            />
+            <Box>
+              <Typography variant="subtitle2" fontWeight="bold">
+                {params.value.nama}
+              </Typography>
+            </Box>
+          </Stack>
+        );
+      },
     },
-  },
-  {
-    field: "harga",
-    headerName: "Harga",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    align: "center",
-    flex: 2,
-    renderCell: (params) => {
-      return (
-        <Box marginY={1}>
-          <Typography variant="subtitle2">{toRupiah(params.value)}</Typography>
-        </Box>
-      );
+    {
+      field: "kategori",
+      headerName: "Kategori",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      align: "center",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <Box marginY={1}>
+            <Typography variant="subtitle2">{params.value}</Typography>
+          </Box>
+        );
+      },
     },
-  },
-  {
-    field: "jumlahStok",
-    headerName: "Stok",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    align: "center",
-    flex: 1.5,
-    renderCell: (params) => {
-      return (
-        <Box marginY={1}>
-          <Typography variant="subtitle2">{params.value}</Typography>
-        </Box>
-      );
+    {
+      field: "harga",
+      headerName: "Harga",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      align: "center",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <Box marginY={1}>
+            <Typography variant="subtitle2">
+              {toRupiah(params.value)}
+            </Typography>
+          </Box>
+        );
+      },
     },
-  },
-  {
-    field: "SKU",
-    headerName: "SKU",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    align: "center",
-    flex: 2,
-    renderCell: (params) => {
-      return (
-        <Box marginY={1}>
-          <Typography variant="subtitle2">{params.value}</Typography>
-        </Box>
-      );
+    {
+      field: "jumlahStok",
+      headerName: "Stok",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      align: "center",
+      flex: 1.5,
+      renderCell: (params) => {
+        return (
+          <Box marginY={1}>
+            <Typography variant="subtitle2">{params.value}</Typography>
+          </Box>
+        );
+      },
     },
-  },
-  {
-    field: "aksi",
-    headerName: "Aksi",
-    headerClassName: "headerColumn",
-    headerAlign: "center",
-    flex: 2,
-    sortable: false,
-    disableColumnMenu: true,
-    renderCell: (params) => {
-      // const onClickDelete = () => {
-      //   return alert(JSON.stringify(params.row, null, 4));
-      // };
-      //   const handleOpen = () => {
-      //     setIsOpen(true);
-      //   };
-
-      //   const handleClickOpen = () => {
-      //     openModal(params.row);
-      //   };
-
-      return (
-        // {/* <IconButton onClick={handleClickOpen}>
-        //   <EditIcon />
-        // </IconButton>
-        // <IconButton onClick={() => handleOpen()}>
-        //   <DeleteIcon />
-        // </IconButton>
-        // <ModalDelete
-        //   isDialogOpened={isOpen}
-        //   handleCloseDialog={() => setIsOpen(false)}
-        // /> */}
-        <Box width="100%" marginX={2}>
-          <FormControl size="small" fullWidth>
-            <InputLabel sx={{ fontWeight: "bold", color: "black" }}>
-              Atur
-            </InputLabel>
-            <Select label="Atur" onChange={() => {}}>
-              <ActionList
-                onClick={() => {}}
-                icon={<EditIcon />}
-                color="#45A779"
-                aksi="Edit"
-              />
-              <ActionList
-                onClick={() => {}}
-                icon={<DeleteIcon />}
-                color="#E11D48"
-                aksi="Delete"
-              />
-            </Select>
-          </FormControl>
-        </Box>
-      );
+    {
+      field: "SKU",
+      headerName: "SKU",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      align: "center",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <Box marginY={1}>
+            <Typography variant="subtitle2">{params.value}</Typography>
+          </Box>
+        );
+      },
     },
-  },
-];
-
-const TabelBarang = (props: ITabelBarangProps) => {
-  const theme = useTheme();
-  const [searchText, setSearchText] = useState("");
-  const [rows, setRows] = useState<any[]>(originalRows);
+    {
+      field: "aksi",
+      headerName: "Aksi",
+      headerClassName: "headerColumn",
+      headerAlign: "center",
+      flex: 2,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => {
+        return (
+          <Box width="100%" marginX={2}>
+            <FormControl size="small" fullWidth>
+              <InputLabel sx={{ fontWeight: "bold", color: "black" }}>
+                Atur
+              </InputLabel>
+              <Select label="Atur" onChange={() => {}}>
+                <ActionList
+                  onClick={() => openModal(params.row)}
+                  icon={<EditIcon />}
+                  color="#45A779"
+                  aksi="Edit"
+                />
+                <ActionList
+                  onClick={() => {}}
+                  icon={<DeleteIcon />}
+                  color="#E11D48"
+                  aksi="Delete"
+                />
+              </Select>
+            </FormControl>
+          </Box>
+        );
+      },
+    },
+  ];
 
   const requestSearch = (searchValue: string) => {
     setSearchText(searchValue);
