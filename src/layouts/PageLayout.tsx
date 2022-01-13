@@ -98,14 +98,13 @@ export default function PageLayout({ children }: IProps) {
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   }));
-  
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
   };
 
   return (
@@ -133,40 +132,29 @@ export default function PageLayout({ children }: IProps) {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {open ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-          <Link to="/">
-            <ListItem button>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Transaksi" />
-            </ListItem>
-          </Link>
-
-          <Link to="/stok">
-            <ListItem button>
-              <ListItemIcon>
-                <AllInboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Stok Penjualan" />
-            </ListItem>
-          </Link>
-          <Link to="/laporan">
-            <ListItem button>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Laporan" />
-            </ListItem>
-          </Link>
+          <ListItem button component={Link} to="/">
+            <ListItemIcon>
+              <ShoppingCartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Transaksi" />
+          </ListItem>
+          <ListItem button component={Link} to="/stok">
+            <ListItemIcon>
+              <AllInboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Stok Penjualan" />
+          </ListItem>
+          <ListItem button component={Link} to="/laporan">
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Laporan" />
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1 }}>
