@@ -304,6 +304,14 @@ const TabelBarang = (props: ITabelBarangProps) => {
     >
       <ThemeProvider theme={theme}>
         <StyledDataGrid
+          localeText={{
+            footerRowSelected: (count) =>
+              count !== 1
+                ? `${count.toLocaleString()} baris dipilih`
+                : `${count.toLocaleString()} baris dipilih`,
+            footerTotalVisibleRows: (visibleCount, totalCount) =>
+              `${visibleCount.toLocaleString()} dari ${totalCount.toLocaleString()}`,
+          }}
           components={{
             Toolbar: QuickSearchToolbar,
           }}
@@ -311,12 +319,15 @@ const TabelBarang = (props: ITabelBarangProps) => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
+          disableColumnMenu
+          disableSelectionOnClick
           componentsProps={{
             toolbar: {
               value: searchText,
               onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
                 requestSearch(event.target.value),
             },
+            pagination: {},
           }}
         />
       </ThemeProvider>
