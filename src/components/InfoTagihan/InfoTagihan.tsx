@@ -34,9 +34,6 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
   };
 
   const handleClose = () => {
-    setDisplay(0);
-    aturDiskon(0, toggleDiskon);
-    hitungBayar(0);
     closeModalBayar();
   };
 
@@ -67,7 +64,7 @@ const InfoTagihan = (props: IInfoTagihanProps) => {
                 }
                 onClick={() => pilihPersentase()}
               >
-                <Typography>Presentase</Typography>
+                <Typography>Persentase</Typography>
               </Button>
             </Stack>
           </Grid>
