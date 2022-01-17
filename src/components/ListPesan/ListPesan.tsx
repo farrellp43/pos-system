@@ -109,7 +109,7 @@ const ListPesan = (props: IListPesanProps) => {
             size="large"
             fullWidth
           >
-            <Typography fontWeight="bold">Reset</Typography>
+            <Typography fontWeight="bold">Kosongkan</Typography>
           </Button>
         </Stack>
       </Box>
