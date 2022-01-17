@@ -17,7 +17,7 @@ interface IKalkulatorProps {}
 const Kalkulator = (props: IKalkulatorProps) => {
   const { hitungBayar, uangPas, diskon, totalHarga, grandTotal } =
     useTransaksi();
-  const [display, setDisplay] = useState<string>("0");
+  const [display, setDisplay] = useState<string>("");
 
   const onQuickActionClick = (digit: number) => {
     let newDisplay = Number(display) + digit;
@@ -97,6 +97,7 @@ const Kalkulator = (props: IKalkulatorProps) => {
           thousandSeparator="."
           decimalSeparator=","
           fullWidth
+          placeholder="0"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             if (event.target.value === "") {
               setDisplay("0");
@@ -138,33 +139,9 @@ const Kalkulator = (props: IKalkulatorProps) => {
         </Button>
         <ButtonKalkulator
           buttonVariant="contained"
-          onClick={() => onQuickActionClick(1000)}
+          onClick={() => onQuickActionClick(100000)}
         >
-          1.000
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="contained"
-          onClick={() => onQuickActionClick(2000)}
-        >
-          2.000
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="contained"
-          onClick={() => onQuickActionClick(5000)}
-        >
-          5.000
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="contained"
-          onClick={() => onQuickActionClick(10000)}
-        >
-          10.000
-        </ButtonKalkulator>
-        <ButtonKalkulator
-          buttonVariant="contained"
-          onClick={() => onQuickActionClick(20000)}
-        >
-          20.000
+          100.000
         </ButtonKalkulator>
         <ButtonKalkulator
           buttonVariant="contained"
@@ -174,9 +151,33 @@ const Kalkulator = (props: IKalkulatorProps) => {
         </ButtonKalkulator>
         <ButtonKalkulator
           buttonVariant="contained"
-          onClick={() => onQuickActionClick(100000)}
+          onClick={() => onQuickActionClick(20000)}
         >
-          100.000
+          20.000
+        </ButtonKalkulator>
+        <ButtonKalkulator
+          buttonVariant="contained"
+          onClick={() => onQuickActionClick(10000)}
+        >
+          10.000
+        </ButtonKalkulator>
+        <ButtonKalkulator
+          buttonVariant="contained"
+          onClick={() => onQuickActionClick(5000)}
+        >
+          5.000
+        </ButtonKalkulator>
+        <ButtonKalkulator
+          buttonVariant="contained"
+          onClick={() => onQuickActionClick(2000)}
+        >
+          2.000
+        </ButtonKalkulator>
+        <ButtonKalkulator
+          buttonVariant="contained"
+          onClick={() => onQuickActionClick(1000)}
+        >
+          1.000
         </ButtonKalkulator>
       </Box>
 
