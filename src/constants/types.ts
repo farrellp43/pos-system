@@ -28,3 +28,48 @@ export interface IInvoice {
     harga: number;
   }[];
 }
+
+export interface LoginBody {
+  email: string;
+  password: string;
+}
+
+export interface AuthState {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  checkToken: (token: string | null) => void;
+  login: (values: LoginBody) => void;
+  logout: () => void;
+}
+
+export interface CheckToken {
+  code: number;
+  message: string;
+  data: string;
+}
+
+export interface LogoutResponse {
+  code: number;
+  message: string;
+}
+
+export interface LoginResponse {
+  code: number;
+  message: string;
+  data: string;
+}
+
+export interface ErrorsFieldResponse {
+  field: string;
+  message: string;
+}
+
+export interface ErrorResponse {
+  code: number;
+  message: string;
+  data?:
+    | {
+        erorrs?: ErrorsFieldResponse[];
+      }
+    | string;
+}
