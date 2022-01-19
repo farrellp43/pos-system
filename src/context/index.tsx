@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { KategoriModalProvider } from "./kategoriModalContext";
 import { StokModalProvider } from "./stokModalContext";
 import { TransaksiProvider } from "./transaksiContext";
 
@@ -9,7 +10,9 @@ interface IindexProps {
 const AppProvider = ({ children }: IindexProps) => {
   return (
     <StokModalProvider>
-      <TransaksiProvider>{children}</TransaksiProvider>
+      <KategoriModalProvider>
+        <TransaksiProvider>{children}</TransaksiProvider>
+      </KategoriModalProvider>
     </StokModalProvider>
   );
 };
