@@ -10,7 +10,7 @@ interface IActionListProps {
 
 const ActionList = ({ onClick, icon, color, aksi }: IActionListProps) => {
   return (
-    <Box width="90%">
+    <Box width="85%">
       <Button
         onClick={onClick}
         fullWidth
@@ -27,7 +27,7 @@ const ActionList = ({ onClick, icon, color, aksi }: IActionListProps) => {
           color={color}
           fontWeight="bold"
           sx={{
-            marginLeft: 2,
+            marginLeft: 1,
           }}
         >
           {aksi}
