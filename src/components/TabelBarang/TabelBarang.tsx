@@ -16,15 +16,14 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { withStyles } from "@mui/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { originalRows } from "../../constants/mock";
 import toRupiah from "../../utils/toRupiah";
 import LogoTokped from "../LogoTokped/LogoTokped";
-import ActionList from "../ActionList/ActionList";
 import { useStokModal } from "../../context/stokModalContext";
+import DropdownTable from "../DropdownTable/DropdownTable";
+import { useKategoriModal } from "../../context/kategoriModalContext";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -55,80 +54,93 @@ interface QuickSearchToolbarProps {
   value: string;
 }
 
-const TabelBarang = (props: ITabelBarangProps) => {
-  const theme = useTheme();
+const QuickSearchToolbar = ({ onChange, value }: QuickSearchToolbarProps) => {
   const { openModal } = useStokModal();
-  const [searchText, setSearchText] = useState("");
-  const [rows, setRows] = useState<any[]>(originalRows);
+  const { openModalKategori } = useKategoriModal();
 
-  const QuickSearchToolbar = ({ onChange, value }: QuickSearchToolbarProps) => {
-    return (
-      <Box>
-        <Box display="flex" justifyContent="space-between" marginTop={3}>
-          <Box>
-            <Typography variant="h4" fontWeight="bold">
-              Daftar Produk
-            </Typography>
+  return (
+    <Box>
+      <Box display="flex" justifyContent="space-between" marginTop={3}>
+        <Box>
+          <Typography variant="h4" fontWeight="bold">
+            Daftar Produk
+          </Typography>
+        </Box>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            onClick={() => {}}
+            startIcon={<CloudDownloadIcon />}
+            size="medium"
+          >
+            <Typography fontWeight="bold">Download Katalog</Typography>
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {}}
+            startIcon={<LogoTokped />}
+            size="medium"
+          >
+            <Typography fontWeight="bold">Import</Typography>
+          </Button>
+        </Stack>
+      </Box>
+      <Box marginY={5}>
+        <Stack direction="row" width="100%" spacing={3} alignItems="center">
+          <Box width="40%">
+            <TextField
+              placeholder="Cari barang..."
+              fullWidth
+              size="small"
+              value={value}
+              onChange={onChange}
+              InputProps={{
+                startAdornment: <SearchIcon />,
+              }}
+              variant="outlined"
+            />
           </Box>
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="contained"
-              onClick={() => {}}
-              startIcon={<CloudDownloadIcon />}
-              size="medium"
-            >
-              <Typography fontWeight="bold">Download Katalog</Typography>
-            </Button>
+          <Box width="20%">
+            <FormControl size="small" fullWidth>
+              <InputLabel>Pilih kategori</InputLabel>
+              <Select label="Pilih Kategori" onChange={() => {}}>
+                <MenuItem value="Makanan">Makanan</MenuItem>
+                <MenuItem value="Minuman">Minuman</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box width="20%">
             <Button
               variant="outlined"
-              onClick={() => {}}
-              startIcon={<LogoTokped />}
-              size="medium"
+              onClick={() => openModalKategori()}
+              startIcon={<AddIcon />}
+              size="large"
+              fullWidth
             >
-              <Typography fontWeight="bold">Import</Typography>
+              <Typography fontWeight="bold">Tambah Kategori</Typography>
             </Button>
-          </Stack>
-        </Box>
-        <Box marginY={5}>
-          <Stack direction="row" width="100%" spacing={3} alignItems="center">
-            <Box width="40%">
-              <TextField
-                placeholder="Cari barang..."
-                fullWidth
-                size="small"
-                value={value}
-                onChange={onChange}
-                InputProps={{
-                  startAdornment: <SearchIcon />,
-                }}
-                variant="outlined"
-              />
-            </Box>
-            <Box width="30%">
-              <FormControl size="small" fullWidth>
-                <InputLabel>Pilih kategori</InputLabel>
-                <Select label="Pilih Kategori" onChange={() => {}}>
-                  <MenuItem value="Makanan">Makanan</MenuItem>
-                  <MenuItem value="Minuman">Minuman</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box width="30%">
-              <Button
-                variant="contained"
-                onClick={() => openModal()}
-                startIcon={<AddIcon />}
-                size="large"
-                fullWidth
-              >
-                <Typography fontWeight="bold">Tambah Barang</Typography>
-              </Button>
-            </Box>
-          </Stack>
-        </Box>
+          </Box>
+          <Box width="20%">
+            <Button
+              variant="contained"
+              onClick={() => openModal()}
+              startIcon={<AddIcon />}
+              size="large"
+              fullWidth
+            >
+              <Typography fontWeight="bold">Tambah Barang</Typography>
+            </Button>
+          </Box>
+        </Stack>
       </Box>
-    );
-  };
+    </Box>
+  );
+};
+
+const TabelBarang = (props: ITabelBarangProps) => {
+  const theme = useTheme();
+  const [searchText, setSearchText] = useState("");
+  const [rows, setRows] = useState<any[]>(originalRows);
 
   const columns: GridColDef[] = [
     {
@@ -154,23 +166,25 @@ const TabelBarang = (props: ITabelBarangProps) => {
       headerClassName: "headerColumn",
       headerAlign: "center",
       flex: 3,
+      valueGetter: (params) => params.row.infoBarang.nama,
       renderCell: (params) => {
         return (
           <Stack direction="row" spacing={1} marginY={3}>
             <Avatar
               sx={{ bgcolor: "#6AB893", width: 50, height: 55 }}
               variant="rounded"
-              alt={params.value.nama}
-              src={params.value.url}
+              alt={params.row.infoBarang.nama}
+              src={params.row.infoBarang.url}
             />
             <Box>
               <Typography variant="subtitle2" fontWeight="bold">
-                {params.value.nama}
+                {params.row.infoBarang.nama}
               </Typography>
             </Box>
           </Stack>
         );
       },
+      // sortComparator: (v1, v2) => v1.nama.localeCompare(v2.nama)
     },
     {
       field: "kategori",
@@ -243,38 +257,20 @@ const TabelBarang = (props: ITabelBarangProps) => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
-        return (
-          <Box width="100%" marginX={2}>
-            <FormControl size="small" fullWidth>
-              <InputLabel sx={{ fontWeight: "bold", color: "black" }}>
-                Atur
-              </InputLabel>
-              <Select label="Atur" onChange={() => {}}>
-                <ActionList
-                  onClick={() => openModal(params.row)}
-                  icon={<EditIcon />}
-                  color="#45A779"
-                  aksi="Edit"
-                />
-                <ActionList
-                  onClick={() => {}}
-                  icon={<DeleteIcon />}
-                  color="#E11D48"
-                  aksi="Delete"
-                />
-              </Select>
-            </FormControl>
-          </Box>
-        );
+        return <DropdownTable parameter={params.row} />;
       },
     },
   ];
 
   const requestSearch = (searchValue: string) => {
+    // const rowsNoUrl = originalRows.map(({ infoBarang, ...rest }) => ({
+    //   ...rest,
+    // }));
     setSearchText(searchValue);
     const searchRegex = new RegExp(escapeRegExp(searchValue), "i");
     const filteredRows = originalRows.filter((row: any) => {
       return Object.keys(row).some((field: any) => {
+        console.log(row[field]);
         return searchRegex.test(row[field].toString());
       });
     });
