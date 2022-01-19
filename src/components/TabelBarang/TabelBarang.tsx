@@ -16,6 +16,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 import { withStyles } from "@mui/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { originalRows } from "../../constants/mock";
@@ -43,11 +44,19 @@ const StyledDataGrid = withStyles({
     "& .MuiDataGrid-row": {
       maxHeight: "none !important",
     },
+    "& .MuiDataGrid-iconButtonContainer": {
+      visibility: "visible",
+      width: "0 !important",
+    },
     border: 0,
   },
 })(DataGrid);
 
 interface ITabelBarangProps {}
+
+const CustomUnsortedIcon = () => {
+  return <ImportExportIcon />;
+};
 
 interface QuickSearchToolbarProps {
   onChange: () => void;
@@ -149,7 +158,7 @@ const TabelBarang = (props: ITabelBarangProps) => {
       headerClassName: "headerColumn",
       headerAlign: "center",
       align: "center",
-      flex: 0.5,
+      flex: 1,
       renderCell: (params) => {
         return (
           <Box marginY={1}>
@@ -310,6 +319,7 @@ const TabelBarang = (props: ITabelBarangProps) => {
           }}
           components={{
             Toolbar: QuickSearchToolbar,
+            ColumnUnsortedIcon: CustomUnsortedIcon,
           }}
           rows={rows}
           columns={columns}
@@ -323,7 +333,6 @@ const TabelBarang = (props: ITabelBarangProps) => {
               onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
                 requestSearch(event.target.value),
             },
-            pagination: {},
           }}
         />
       </ThemeProvider>

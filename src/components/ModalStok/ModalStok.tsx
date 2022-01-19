@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -7,8 +7,15 @@ import { useForm, Controller } from "react-hook-form";
 import {
   Box,
   Button,
+  Checkbox,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   Switch,
   TextField,
   Typography,
@@ -38,10 +45,15 @@ const schema = yup
 
 const ModalStok = () => {
   const { isOpenModal, closeModal, dataStok } = useStokModal();
-  const [checked, setChecked] = React.useState(true);
+  const [toggled, setToggled] = useState(false);
+  const [checked, setChecked] = useState(true);
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    setToggled(event.target.checked);
   };
 
   const initialValues = useMemo(
@@ -97,7 +109,7 @@ const ModalStok = () => {
           defaultValue=""
           render={({ field }) => (
             <TextField
-              margin="dense"
+              // margin="normal"
               id="namaBarang"
               label="Nama Barang"
               fullWidth
@@ -109,30 +121,84 @@ const ModalStok = () => {
           )}
           rules={{ required: "Nama barang required" }}
         />
-        <Controller
-          name="kategori"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField
-              margin="dense"
-              id="kategori"
-              label="Kategori"
+        <Box display="flex" justifyContent="space-between" width="60%" mb={2}>
+          <Box>
+            <Typography variant="body1">Kategori</Typography>
+            <Typography variant="body2" color="#545E6A">
+              Cek jika ingin menambah kategori baru.
+            </Typography>
+          </Box>
+          <Box>
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox checked={checked} onChange={handleCheck} />}
+                label="Tambah kategori baru"
+              />
+            </FormGroup>
+          </Box>
+        </Box>
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <FormControl
+              // margin="normal"
               fullWidth
-              variant="outlined"
-              error={Boolean(errors.kategori)}
-              helperText={errors.kategori ? errors.kategori.message : " "}
-              {...field}
-            />
-          )}
-          rules={{ required: "Kategori required" }}
-        />
+              disabled={checked ? true : false}
+            >
+              <InputLabel error={Boolean(errors.kategori)}>Pilih kategori</InputLabel>
+              <Controller
+                control={control}
+                name="kategori"
+                render={({ field: { onChange, value } }) => (
+                  <Select
+                    label="Pilih kategori"
+                    onChange={onChange}
+                    value={value}
+                    error={Boolean(errors.kategori)}
+                  >
+                    <MenuItem value="Makanan">Makanan</MenuItem>
+                    <MenuItem value="Minuman">Minuman</MenuItem>
+                  </Select>
+                )}
+              />
+              <FormHelperText error={Boolean(errors.kategori)}>
+                {errors.kategori ? errors.kategori.message : " "}
+              </FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid item md={6}>
+            {checked ? (
+              // <FormControl fullWidth>
+                <Controller
+                  name="kategori"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      // margin="normal"
+                      id="kategori"
+                      label="Kategori"
+                      fullWidth
+                      variant="outlined"
+                      error={Boolean(errors.kategori)}
+                      helperText={
+                        errors.kategori ? errors.kategori.message : " "
+                      }
+                      {...field}
+                    />
+                  )}
+                  rules={{ required: "Kategori required" }}
+                />
+              // </FormControl>
+            ) : (
+              ""
+            )}
+          </Grid>
+        </Grid>
         <Controller
           name="harga"
           control={control}
           render={({ field }) => (
             <TextField
-              margin="dense"
+              // margin="normal"
               id="harga"
               label="Harga"
               type="number"
@@ -151,7 +217,7 @@ const ModalStok = () => {
           defaultValue=""
           render={({ field }) => (
             <TextField
-              margin="dense"
+              // margin="normal"
               id="SKU"
               label="SKU"
               type="SKU"
@@ -174,19 +240,19 @@ const ModalStok = () => {
           <Box>
             <FormGroup>
               <FormControlLabel
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label={checked ? "Aktif" : "Tidak Aktif"}
+                control={<Switch checked={toggled} onChange={handleChange} />}
+                label={toggled ? "Aktif" : "Tidak Aktif"}
               />
             </FormGroup>
           </Box>
         </Box>
-        {checked ? (
+        {toggled ? (
           <Controller
             name="jumlahStok"
             control={control}
             render={({ field }) => (
               <TextField
-                margin="dense"
+                // margin="normal"
                 id="jumlahStok"
                 label="Jumlah Stok"
                 type="number"
